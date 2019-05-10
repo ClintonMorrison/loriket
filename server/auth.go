@@ -10,12 +10,7 @@ type Auth struct {
 	password string
 }
 
-func (a Auth) SaltedPassword() (string, error) {
-	salt, err := readSaltFile(a)
-	if err != nil {
-		return "", err
-	}
-
+func (a Auth) SaltedPassword(salt []byte) (string, error) {
 	data := make([]byte, 0)
 	data = append(data, []byte(a.password)...)
 	data = append(data, salt...)
@@ -24,10 +19,10 @@ func (a Auth) SaltedPassword() (string, error) {
 	return hash(data), nil
 }
 
-func (a Auth) Signature() (string, error) {
+func (a Auth) Signature(salt []byte) (string, error) {
 	data := make([]byte, 0)
 
-	saltedPassword, err := a.SaltedPassword()
+	saltedPassword, err := a.SaltedPassword(salt)
 	if err != nil {
 		return "", err
 	}

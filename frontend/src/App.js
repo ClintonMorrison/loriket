@@ -1,24 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import Routes from './Routes';
+
+// Services
+import AuthService from "./services/AuthService";
+
 import './App.css';
+import APIService from "./services/APIService";
+
+// Instantiate services
+const apiService = new APIService({
+  baseURL: "http://localhost:8080/api/"
+});
+
+const authService = new AuthService({
+  apiService
+});
+
+const services = {
+  apiService,
+  authService
+};
+
+window.services = services;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="cp-app">
+      <header>
+        <Navigation />
       </header>
+
+      <main className="container">
+        <Routes services={services} />
+      </main>
+
+      <Footer />
     </div>
   );
 }
