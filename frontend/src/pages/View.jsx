@@ -22,7 +22,7 @@ export default class View extends React.Component {
     }).then(() => {
       this.props.history.push("/passwords");
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 
@@ -35,7 +35,7 @@ export default class View extends React.Component {
     }).then(() => {
       this.props.history.push("/passwords");
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 
@@ -47,7 +47,7 @@ export default class View extends React.Component {
     return this.props.services.documentService.loadDocument().then(document => {
       this.setState({ document });
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 
@@ -57,8 +57,6 @@ export default class View extends React.Component {
         <Loader />
       );
     }
-
-    console.log(this);
 
     const { id } = this.props.match.params;
     const passwords = this.getPasswords();

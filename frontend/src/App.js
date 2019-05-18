@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="cp-app">
       <header>
-        <Navigation />
+        <Navigation services={services} />
       </header>
 
       <main className="container">

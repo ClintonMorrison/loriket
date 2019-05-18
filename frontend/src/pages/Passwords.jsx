@@ -55,7 +55,7 @@ export default class Passwords extends React.Component {
     }).then(() => {
       this.props.history.push(`/passwords/${id}`);
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 
@@ -63,7 +63,7 @@ export default class Passwords extends React.Component {
     return this.props.services.documentService.loadDocument().then(document => {
       this.setState({ document });
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 

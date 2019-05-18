@@ -13,7 +13,7 @@ export default class Authenticated extends React.Component {
     return this.props.services.documentService.loadDocument().then(document => {
       this.setState({ document });
     }).catch(() => {
-      this.props.history.push("/login");
+      this.props.history.push("/logout");
     });
   }
 

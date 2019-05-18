@@ -1,4 +1,3 @@
-// import sha256 from 'js-sha256';
 import sha256 from 'crypto-js/sha256';
 import AES  from 'crypto-js/aes';
 import UTF_8 from 'crypto-js/enc-utf8';
@@ -31,6 +30,10 @@ export default class AuthService {
     return sessionStorage.getItem('token');
   }
 
+  logout() {
+    sessionStorage.clear();
+  }
+
   getHashedToken() {
     const token = this.getToken();
     if (!token) {
@@ -53,7 +56,6 @@ export default class AuthService {
   getHeaders() {
     const username = this.getUsername();
     const token = this.getHashedToken();
-    console.log('heading to encode: ', `${username}:${token}`);
     const encoded = btoa(`${username}:${token}`);
     return { 'Authorization': `Basic ${encoded}` };
   }
@@ -66,7 +68,6 @@ export default class AuthService {
   loadDocument() {
     return this.apiService.get("document", {}, this.getHeaders()).then(resp => {
       const rawDocument = _.get(resp, "data.document") || '{}';
-      console.log(rawDocument);
       this.document = JSON.parse(rawDocument);
       return this.document;
     });
