@@ -5,7 +5,7 @@ export default class Collection extends React.Component {
   render() {
     return (
       <ul className="collection">
-        {this.props.passwords.map(item => <Item item={item} />)}
+        {this.props.passwords.map(item => <Item key={item.id || item.title} item={item} />)}
       </ul>
     );
   }

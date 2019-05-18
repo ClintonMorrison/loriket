@@ -5,9 +5,10 @@ import Routes from './Routes';
 
 // Services
 import AuthService from "./services/AuthService";
+import APIService from "./services/APIService";
+import DocumentService from "./services/DocumentService";
 
 import './App.css';
-import APIService from "./services/APIService";
 
 // Instantiate services
 const apiService = new APIService({
@@ -18,9 +19,15 @@ const authService = new AuthService({
   apiService
 });
 
+const documentService = new DocumentService({
+  authService,
+  apiService
+});
+
 const services = {
   apiService,
-  authService
+  authService,
+  documentService
 };
 
 window.services = services;

@@ -1,8 +1,11 @@
 import React from 'react';
 
-export default class TextField extends React.Component {
+export default class TextArea extends React.Component {
   componentDidMount() {
-    setTimeout(() => window.M.updateTextFields(), 0);
+    setTimeout(() => {
+      window.M.updateTextFields();
+      window.M.textareaAutoResize(window.$('textarea'))
+    }, 0);
   }
 
   render () {
@@ -12,7 +15,6 @@ export default class TextField extends React.Component {
       onChange,
       value,
       error,
-      type,
       icon
     } = this.props;
 
@@ -20,10 +22,9 @@ export default class TextField extends React.Component {
       <div className="cp-text-field row">
         <div className="input-field col s12">
           {icon && (<i className="material-icons prefix">{icon}</i>)}
-          <input
+          <textarea
             id={id}
-            type={type}
-            className={error ? 'invalid' : ''}
+            className={`materialize-textarea ${error ? 'invalid' : ''}`}
             value={value}
             onChange={(e) => onChange(e.target.value)} />
           <label htmlFor={id}>{label}</label>
@@ -33,7 +34,3 @@ export default class TextField extends React.Component {
     );
   }
 }
-
-TextField.defaultProps = {
-  type: 'text'
-};

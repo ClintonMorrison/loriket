@@ -1,55 +1,45 @@
 import React from 'react';
-import BasicField from "./BasicField";
-import DateField from "./DateField";
+import { Link } from "react-router-dom";
+import CopyableField from "./CopyableField";
+
+import './Item.scss';
 
 export default class Item extends React.Component {
-  renderWebsite() {
+  renderTitle() {
     const { item } = this.props;
+    const title = item.title || 'Untitled';
     if (!item.website) {
-      return null;
+      return title;
     }
 
     return (
-      <div>
-        <a target="_blank" href={item.website}>Website</a>
-      </div>
+      <a target="_blank" rel="noopener noreferrer" href={item.website}>{title}</a>
     );
   }
 
   renderViewButton() {
     return (
-      <button class="waves-effect waves-light btn-small">
-        View
-      </button>
-
+      <Link className="waves-effect waves-light btn-small" to={`/passwords/${this.props.item.id}`}>
+        <i className="material-icons">edit</i>
+      </Link>
     );
   }
 
 
   render() {
     const { item } = this.props;
-    /*
-    title": "Steam",
-			"username": "clint222",
-			"password": "1234",
-			"email": "clintonmorrison2@gmail.com",
-			"website": "https://steam.com",
-			"notes": "Clint's Steam account\n.This is it.",
-			"tags": ["gaming"],
-			"category": "gaming",
-			"dateCreated": "2019-01-01",
-			"dateUpdated
-     */
     return (
-      <li className="cp-item collection-item avatar">
-        <i className="material-icons circle red">play_arrow</i>
-        <span className="title">{item.title}</span>
-        <BasicField title="Username" value={item.username} className="notes" />
-        <BasicField title="Password" value={item.password} />
-        <BasicField title="Notes" value={item.notes} className="notes" />
-        {this.renderWebsite()}
-        <div  className="secondary-content">
-          {this.renderViewButton()}
+      <li className="cp-item collection-item">
+        <div className="row">
+          <div className="title col s12">{this.renderTitle()}</div>
+          <div className="col s9">
+            <CopyableField title="Username" value={item.username} />
+            <CopyableField title="Password" value={item.password} mask />
+          </div>
+
+          <div className="col s3 actions">
+            {this.renderViewButton()}
+          </div>
         </div>
       </li>
     );

@@ -1,0 +1,14 @@
+.cp-item {
+  &.collection-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .actions {
+    text-align: right;
+  }
+}

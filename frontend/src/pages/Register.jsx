@@ -34,7 +34,7 @@ export default class Register extends React.Component {
     }
 
     const { username, password } = this.state;
-    this.props.services.authService.createDocument({ username, password })
+    this.props.services.documentService.createDocument({ username, password })
       .then(() => {
         console.log(this.props);
         this.props.history.push('/login')
@@ -55,14 +55,14 @@ export default class Register extends React.Component {
     });
   }
 
-  updateUsername(e) {
+  updateUsername(username) {
     this.clearErrors();
-    this.setState({ username: e.target.value });
+    this.setState({ username });
   }
 
-  updatePassword(e) {
+  updatePassword(password) {
     this.clearErrors();
-    this.setState({ password: e.target.value });
+    this.setState({ password });
   }
 
   render() {
@@ -92,7 +92,7 @@ export default class Register extends React.Component {
               id="username"
               value={this.state.username}
               error={this.state.usernameError}
-              onChange={e => this.updateUsername(e)} />
+              onChange={val => this.updateUsername(val)} />
 
             <TextField
               label="Password"
@@ -100,7 +100,7 @@ export default class Register extends React.Component {
               type="password"
               value={this.state.password}
               error={this.state.passwordError}
-              onChange={e => this.updatePassword(e)} />
+              onChange={val => this.updatePassword(val)} />
 
             <div className="row">
               <div className="input-field col s12">

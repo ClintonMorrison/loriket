@@ -35,7 +35,7 @@ export default class Login extends React.Component {
 
     const { username, password } = this.state;
     this.props.services.authService.setCredentials({ username, password });
-    this.props.services.authService.loadDocument()
+    this.props.services.documentService.loadDocument()
       .then(() => {
         this.props.history.push('/passwords');
       })
@@ -55,14 +55,14 @@ export default class Login extends React.Component {
     });
   }
 
-  updateUsername(e) {
+  updateUsername(username) {
     this.clearErrors();
-    this.setState({ username: e.target.value });
+    this.setState({ username });
   }
 
-  updatePassword(e) {
+  updatePassword(password) {
     this.clearErrors();
-    this.setState({ password: e.target.value });
+    this.setState({ password });
   }
 
   render() {

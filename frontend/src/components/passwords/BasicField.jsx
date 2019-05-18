@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function BasicField({ title, value, className }) {
+import './BasicField.scss';
+
+export default function BasicField({ title, value, className, children }) {
   if (!value) {
     return null;
   }
@@ -8,6 +10,7 @@ export default function BasicField({ title, value, className }) {
   return (
     <div className={`cp-basic-field ${className}`}>
       <strong>{title}</strong>: {value}
+      {children}
     </div>
   );
 }

@@ -1,0 +1,13 @@
+.cp-details {
+  position: relative;
+
+  .actions {
+    margin: 1em 0;
+    display: flex;
+    justify-content: space-between;
+
+    > :not(.delete-button) {
+      width: 40%;
+    }
+  }
+}

@@ -13,7 +13,6 @@ type DocumentResponse struct {
 	Document string `json:"document,omitempty"`
 }
 
-
 type Controller struct {
 	service *Service
 }
@@ -69,10 +68,11 @@ func (c *Controller) getDocument(auth Auth) DocumentResponse {
 }
 
 func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/text")
 	if debugMode {
 		w.Header().Set("Access-Control-Allow-Origin", "*") // TODO: for debugging
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization") // TODO: for debugging
+		w.Header().Set("Access-Control-Allow-Methods", "PUT") // TODO: for debugging
 	}
 
 	if r.Method == "OPTIONS" {
@@ -114,11 +114,17 @@ func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
 
 func writeResponse(w http.ResponseWriter, response DocumentResponse) {
 	w.WriteHeader(response.Code)
+	w.Write([]byte(response.Document))
+
+	/*
 	jsonResponse, err := json.Marshal(response)
+
 	if err != nil {
 		w.WriteHeader(500)
 		w.Write(fallbackErrorJSON)
 	}
 
+
 	w.Write(jsonResponse)
+	*/
 }
