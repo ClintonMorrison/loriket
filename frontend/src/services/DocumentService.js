@@ -18,11 +18,9 @@ export default class AuthService {
   loadDocument() {
     return this.apiService.get("document", {}, this.authService.getHeaders()).then(resp => {
       console.log(resp);
-      const encryptedDocument = _.get(resp, "data") || '{}';
+      const encryptedDocument = _.get(resp, "data.document") || '{}';
       const decryptedDocument = this.authService.decryptWithToken(encryptedDocument);
-      console.log(encryptedDocument, '->', decryptedDocument);
       this.document = JSON.parse(decryptedDocument);
-      console.log(this.document);
       return this.document;
     });
   }

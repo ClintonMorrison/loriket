@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
-import uuid from 'uuid/v5';
 
 import Details from "../components/passwords/Details";
 import Loader from "../components/Loader";

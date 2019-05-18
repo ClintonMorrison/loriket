@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
+	"fmt"
 )
 
 type DocumentResponse struct {
@@ -113,18 +114,16 @@ func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeResponse(w http.ResponseWriter, response DocumentResponse) {
+	fmt.Printf("Response: %d %s\n", response.Code, response.Error)
 	w.WriteHeader(response.Code)
-	w.Write([]byte(response.Document))
 
-	/*
 	jsonResponse, err := json.Marshal(response)
 
 	if err != nil {
 		w.WriteHeader(500)
 		w.Write(fallbackErrorJSON)
+		return
 	}
 
-
 	w.Write(jsonResponse)
-	*/
 }
