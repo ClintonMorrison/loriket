@@ -1,27 +1,34 @@
 import React from 'react';
+import { withRouter, Link } from 'react-router-dom';
 
 import './Navigation.scss';
-export default function Navigation({ services }) {
-  const loggedIn = services.authService.sessionExists();
+export class Navigation extends React.Component {
 
-  const loggedOutItems = [
-    <li key="register"><a href="/register">Register</a></li>,
-    <li key="login"><a href="/login">Login</a></li>,
-  ];
+  render() {
+    const { services } = this.props;
+    const loggedIn = services.authService.sessionExists();
 
-  const loggedInItems = [
-    <li key="passwords"><a href="/passwords">My Passwords</a></li>,
-    <li key="logout"><a href="/logout">Logout</a></li>
-  ];
+    const loggedOutItems = [
+      <li key="register"><Link to="/register">Register</Link></li>,
+      <li key="login"><Link to="/login">Login</Link></li>,
+    ];
 
-  return (
-    <nav className="green">
-      <div className="cp-navigation">
-        <a href="/" className="brand-logo">Lorikeet</a>
-        <ul id="nav-mobile" className="right">
-          {loggedIn ? loggedInItems : loggedOutItems}
-        </ul>
-      </div>
-    </nav>
-  );
+    const loggedInItems = [
+      <li key="passwords"><Link to="/passwords">My Passwords</Link></li>,
+      <li key="logout"><Link to="/logout">Logout</Link></li>
+    ];
+
+    return (
+      <nav className="green">
+        <div className="cp-navigation">
+          <Link to="/" className="brand-logo">Lorikeet</Link>
+          <ul id="nav-mobile" className="right">
+            {loggedIn ? loggedInItems : loggedOutItems}
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 }
+
+export default withRouter(Navigation);

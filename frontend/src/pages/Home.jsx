@@ -5,25 +5,28 @@ import './Home.scss';
 export default function Home() {
   return (
     <div className="cp-home">
-      <h4>Securely store your passwords</h4>
+      <div className="heading">
+        <h1>Lorikeet</h1>
+        <p className="subtitle">A secure online password manager.</p>
+      </div>
 
 
       <div className="bird-banner">
-        <img src="https://placekitten.com/g/200/300" />
+        <img src={`${process.env.PUBLIC_URL}/bird_large.png`} />
       </div>
 
       <div className="row">
-        <div className="col s4">
+        <div className="col s12 m4">
           <div className="center promo promo-example">
             <i className="material-icons large">sentiment_very_satisfied</i>
             <h5 className="promo-caption">Easy</h5>
             <p className="light center">
-              You can stop keeping track of your passwords. It's easy to check them at home or on the go with Lorikeet.
+              You can stop keeping track of your passwords. It's easy to manage your passwords with Lorikeet.
             </p>
           </div>
         </div>
 
-        <div className="col s4">
+        <div className="col s12 m4">
           <div className="center promo promo-example">
             <i className="material-icons large">security</i>
             <h5 className="promo-caption">Secure</h5>
@@ -33,7 +36,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="col s4">
+        <div className="col s12 m4">
           <div className="center promo promo-example">
             <i className="material-icons large">attach_money</i>
             <h5 className="promo-caption">Free</h5>

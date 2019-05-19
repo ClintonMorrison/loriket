@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Routes from './Routes';
 
@@ -35,14 +34,7 @@ window.services = services;
 function App() {
   return (
     <div className="cp-app">
-      <header>
-        <Navigation services={services} />
-      </header>
-
-      <main className="container">
-        <Routes services={services} />
-      </main>
-
+      <Routes services={services} />
       <Footer />
     </div>
   );
