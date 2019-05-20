@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"github.com/loriket/server/errors"
+	"github.com/ClintonMorrison/lorikeet/server/errors"
 )
 
 type Service struct {

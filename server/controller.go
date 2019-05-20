@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/loriket/server/errors"
+	"github.com/ClintonMorrison/lorikeet/server/errors"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
