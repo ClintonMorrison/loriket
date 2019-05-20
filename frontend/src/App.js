@@ -11,7 +11,7 @@ import './App.scss';
 
 // Instantiate services
 const apiService = new APIService({
-  baseURL: "http://localhost:8080/api/"
+  baseURL: `${window.location.origin}/api/`
 });
 
 const authService = new AuthService({
