@@ -1,7 +1,5 @@
 .cp-home {
-  .heading {
-    text-align: center;
-  }
+  text-align: center;
 
   .bird-banner {
     margin: 2em 0;
@@ -18,6 +16,10 @@
   .promo-example {
     max-width: 250px;
     margin: auto;
+    margin-bottom: 3em;
+  }
+
+  .sign-up-link {
     margin-bottom: 3em;
   }
 }

@@ -69,6 +69,8 @@ func (c *Controller) getDocument(auth Auth) DocumentResponse {
 }
 
 func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("[REQUEST] %s, %s, %s | %s %s\n", r.RemoteAddr, r.Header.Get("X-Forwarded-For"), r.Header.Get("User-Agent"), r.Method, r.RequestURI)
+
 	w.Header().Set("Content-Type", "application/text")
 	if debugMode {
 		w.Header().Set("Access-Control-Allow-Origin", "*") // TODO: for debugging
@@ -114,7 +116,7 @@ func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeResponse(w http.ResponseWriter, response DocumentResponse) {
-	fmt.Printf("Response: %d %s\n", response.Code, response.Error)
+	fmt.Printf("[RESPONSE] %d %s\n", response.Code, response.Error)
 	w.WriteHeader(response.Code)
 
 	jsonResponse, err := json.Marshal(response)

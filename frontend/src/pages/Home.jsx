@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Home.scss';
 
@@ -47,6 +48,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Link to="/register" className="sign-up-link waves-effect waves-light btn-large btn">Sign Up Now</Link>
     </div>
   );
 }
