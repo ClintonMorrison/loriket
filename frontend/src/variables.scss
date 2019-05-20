@@ -1,0 +1,14 @@
+$bird-blue: desaturate(#2D2CD2, 20%);
+$bird-orange: #FF6A00;
+$bird-light-orange: #FFAB00;
+$bird-green: #00A71B;
+$bird-yellow: darken(#DBE100, 15%);
+
+$primary-color: $bird-green;
+$primary-color-light: lighten($primary-color, 10%);
+$primary-color-dark: darken($primary-color, 10%);
+
+$secondary-color: $bird-blue; // $bird-orange; //$bird-blue;
+$success-color: $bird-green;
+$error-color: $bird-orange; //$bird-yellow;
+$link-color: $bird-blue;

@@ -19,7 +19,7 @@ export default class Item extends React.Component {
 
   renderViewButton() {
     return (
-      <Link className="waves-effect waves-light btn-small orange" to={`/passwords/${this.props.item.id}`}>
+      <Link className="waves-effect waves-light btn-small" to={`/passwords/${this.props.item.id}`}>
         <i className="material-icons">edit</i>
       </Link>
     );

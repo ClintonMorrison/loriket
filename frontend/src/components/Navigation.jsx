@@ -19,7 +19,7 @@ export class Navigation extends React.Component {
     ];
 
     return (
-      <nav className="green">
+      <nav className="">
         <div className="cp-navigation">
           <Link to="/" className="brand-logo">Lorikeet</Link>
           <ul id="nav-mobile" className="right">

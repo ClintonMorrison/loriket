@@ -104,7 +104,7 @@ export default class Register extends React.Component {
             <div className="row">
               <div className="input-field col s12">
                 <button
-                  className="btn waves-effect waves-light blue"
+                  className="btn waves-effect waves-light"
                   type="submit"
                   name="action"
                   onClick={(e) => this.submit(e)}>

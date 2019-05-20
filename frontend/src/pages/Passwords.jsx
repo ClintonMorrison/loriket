@@ -89,7 +89,7 @@ export default class Passwords extends React.Component {
         <div className="top-actions">
           <button
             onClick={e => this.createPassword(e)}
-            className="waves-effect waves-light btn orange">
+            className="waves-effect waves-light btn">
             <i className="material-icons left">add</i>
             Add
           </button>

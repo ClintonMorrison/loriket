@@ -32,7 +32,7 @@ export default class CopyableField extends React.Component {
   renderToggleLink() {
     return (
       <button
-        className="copy-button btn-small waves-effect waves-light green lighten-2"
+        className="copy-button btn-small waves-effect waves-light btn-negative"
         onClick={(e) => this.copyToClipboard(e)}
         ref={this.buttonRef}>
         <i class="material-icons left">content_copy</i>

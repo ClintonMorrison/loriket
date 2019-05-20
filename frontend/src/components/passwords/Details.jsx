@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TextField from "../forms/TextField";
 import TextArea from "../forms/TextArea";
 
@@ -115,12 +116,12 @@ export default class Details extends React.Component {
             onChange={val => this.updateItem('notes', val)} />
 
           <div className="actions">
-            <a className="waves-effect waves-light grey btn" href="/passwords">Cancel</a>
+            <Link className="waves-effect waves-light grey btn" to="/passwords">Cancel</Link>
             <button
-              className="waves-effect waves-light blue btn"
+              className="waves-effect waves-light btn"
               onClick={(e) => this.handleSave(e)}>Save</button>
             <button
-              className="waves-effect waves-light btn red delete-button"
+              className="waves-effect waves-light btn btn-negative delete-button"
               onClick={(e) => this.handleDelete(e)}>
               <i className="material-icons">delete</i>
             </button>

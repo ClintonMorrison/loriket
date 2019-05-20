@@ -18,7 +18,7 @@ export default function Home() {
       <div className="row">
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">sentiment_very_satisfied</i>
+            <i className="material-icons large">spa</i>
             <h5 className="promo-caption">Easy</h5>
             <p className="light center">
               You can stop keeping track of your passwords. It's easy to manage your passwords with Lorikeet.
@@ -28,7 +28,7 @@ export default function Home() {
 
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">security</i>
+            <i className="material-icons large">vpn_key</i>
             <h5 className="promo-caption">Secure</h5>
             <p className="light center">
               With strong AES encryption on the client-side and server-side, you don't need to worry about your passwords.
@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">attach_money</i>
+            <i className="material-icons large">favorite</i>
             <h5 className="promo-caption">Free</h5>
             <p className="light center">
               Lorikeet is free to use, and <a href="https://github.com/ClintonMorrison/lorikeet">open source</a>.
