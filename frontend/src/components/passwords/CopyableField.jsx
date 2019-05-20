@@ -7,8 +7,7 @@ import './CopyableField.scss';
 export default class CopyableField extends React.Component {
   constructor(props) {
     super(props);
-    this.linkRef = React.createRef();
-
+    this.buttonRef = React.createRef();
   }
 
   copyToClipboard(e) {
@@ -32,14 +31,13 @@ export default class CopyableField extends React.Component {
 
   renderToggleLink() {
     return (
-      <a
-        className="copy-link"
-        href={`#copy-field-${this.props.title}`}
+      <button
+        className="copy-button btn-small waves-effect waves-light green lighten-2"
         onClick={(e) => this.copyToClipboard(e)}
-        ref={this.linkRef}
-      >
-        Copy
-      </a>
+        ref={this.buttonRef}>
+        <i class="material-icons left">content_copy</i>
+        {this.props.title}
+      </button>
     );
   }
 
@@ -47,10 +45,10 @@ export default class CopyableField extends React.Component {
     const value = this.getValue();
     return (
       <div className="cp-copyable-field">
-        <BasicField
+        {this.props.renderField && <BasicField
           className="cp-copyable-field"
           title={this.props.title}
-          value={value} />
+          value={value} />}
         {this.renderToggleLink()}
       </div>
     );

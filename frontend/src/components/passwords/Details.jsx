@@ -62,6 +62,7 @@ export default class Details extends React.Component {
 
         <form>
           <TextField
+            autoFocus
             label="Title"
             id="title"
             icon="title"

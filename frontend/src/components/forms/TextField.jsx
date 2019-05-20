@@ -1,8 +1,19 @@
 import React from 'react';
 
 export default class TextField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+
   componentDidMount() {
-    setTimeout(() => window.M.updateTextFields(), 0);
+    setTimeout(() => {
+      window.M.updateTextFields();
+      if (this.props.autoFocus) {
+        console.log(this.ref);
+        this.ref.current.focus();
+      }
+    }, 0);
   }
 
   render () {
@@ -25,7 +36,8 @@ export default class TextField extends React.Component {
             type={type}
             className={error ? 'invalid' : ''}
             value={value}
-            onChange={(e) => onChange(e.target.value)} />
+            onChange={(e) => onChange(e.target.value)}
+            ref={this.ref} />
           <label htmlFor={id}>{label}</label>
           <span className="helper-text" data-error={error} />
         </div>

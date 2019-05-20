@@ -19,7 +19,7 @@ export default class Item extends React.Component {
 
   renderViewButton() {
     return (
-      <Link className="waves-effect waves-light btn-small" to={`/passwords/${this.props.item.id}`}>
+      <Link className="waves-effect waves-light btn-small orange" to={`/passwords/${this.props.item.id}`}>
         <i className="material-icons">edit</i>
       </Link>
     );
@@ -30,17 +30,10 @@ export default class Item extends React.Component {
     const { item } = this.props;
     return (
       <li className="cp-item collection-item">
-        <div className="row">
-          <div className="title col s12">{this.renderTitle()}</div>
-          <div className="col s9">
-            <CopyableField title="Username" value={item.username} />
-            <CopyableField title="Password" value={item.password} mask />
-          </div>
-
-          <div className="col s3 actions">
-            {this.renderViewButton()}
-          </div>
-        </div>
+        <span className="title">{this.renderTitle()}</span>
+        <CopyableField title="Username" value={item.username} />
+        <CopyableField title="Password" value={item.password} mask />
+        {this.renderViewButton()}
       </li>
     );
   }

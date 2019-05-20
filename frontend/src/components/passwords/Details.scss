@@ -1,5 +1,8 @@
 .cp-details {
-  position: relative;
+  .title {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
 
   .actions {
     margin: 1em 0;

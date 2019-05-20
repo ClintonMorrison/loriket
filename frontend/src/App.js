@@ -7,7 +7,7 @@ import AuthService from "./services/AuthService";
 import APIService from "./services/APIService";
 import DocumentService from "./services/DocumentService";
 
-import './App.css';
+import './App.scss';
 
 // Instantiate services
 const apiService = new APIService({

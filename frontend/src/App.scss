@@ -1,0 +1,21 @@
+
+.cp-app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+button,
+a.btn,
+a.btn-small {
+  border: 2px solid transparent !important;
+
+  &:hover,
+  &:focus {
+    border: 2px solid black !important;
+  }
+}
