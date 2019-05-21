@@ -30,4 +30,24 @@ export default class AuthService {
 
     return this.apiService.put("document", encryptedDocument, this.authService.getHeaders());
   }
+
+  deleteDocument() {
+    return this.apiService.del("document", this.authService.getHeaders());
+  }
+
+  updatePassword(password) {
+    const token = this.authService.hashPassword(password);
+    const hashedToken = this.authService.hashToken(token);
+
+    return this.loadDocument().then(document => {
+      const unencryptedDocument = JSON.stringify(document);
+      const encryptedDocument = this.authService.encryptWithToken(unencryptedDocument, token);
+
+      return this.apiService.put(
+        "document/password",
+        { password: hashedToken, document: encryptedDocument },
+        this.authService.getHeaders()
+      ).then(() => this.authService.setToken(password));
+    });
+  }
 }

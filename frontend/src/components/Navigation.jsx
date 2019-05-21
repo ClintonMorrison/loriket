@@ -14,6 +14,7 @@ export class Navigation extends React.Component {
     ];
 
     const loggedInItems = [
+      <li key="account"><Link to="/account">My Account</Link></li>,
       <li key="passwords"><Link to="/passwords">My Passwords</Link></li>,
       <li key="logout"><Link to="/logout">Logout</Link></li>
     ];

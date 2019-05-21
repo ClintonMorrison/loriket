@@ -35,4 +35,12 @@ export default class APIService {
       headers
     });
   }
+
+  del(path, headers) {
+    return axios({
+      method: 'delete',
+      url: `/${path}`,
+      headers
+    });
+  }
 }

@@ -81,6 +81,7 @@ export default class Login extends React.Component {
             <TextField
               label="Username"
               id="username"
+              autoComplete="username"
               value={this.state.username}
               error={this.state.usernameError}
               onChange={e => this.updateUsername(e)} />
@@ -88,6 +89,7 @@ export default class Login extends React.Component {
             <TextField
               label="Password"
               id="password"
+              autoComplete="password"
               type="password"
               value={this.state.password}
               error={this.state.passwordError}

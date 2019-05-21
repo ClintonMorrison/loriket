@@ -114,6 +114,60 @@ func (s *Service) GetDocument(auth Auth) ([]byte, error) {
 	return document, nil
 }
 
+func (s *Service) DeleteDocument(auth Auth) (error) {
+	salt, err := s.saltForUser(auth)
+	if err != nil {
+		return err
+	}
+
+	err = s.checkDocumentExists(auth, salt)
+	if err != nil {
+		return errors.SERVER_ERROR
+	}
+
+	err = s.repo.deleteDocument(auth, salt)
+	if err != nil {
+		logError(err)
+		return errors.SERVER_ERROR
+	}
+
+	err = s.repo.deleteSaltFile(auth)
+	if err != nil {
+		logError(err)
+		return errors.SERVER_ERROR
+	}
+
+	return nil
+}
+
+func (s *Service) UpdatePassword(auth Auth, newPassword []byte, document []byte) error {
+	salt, err := s.saltForUser(auth)
+	if err != nil {
+		return err
+	}
+
+	err = s.checkDocumentExists(auth, salt)
+	if err != nil {
+		return err
+	}
+
+	newAuth := Auth{auth.username, string(newPassword)}
+	err = s.repo.moveDocument(auth, salt, newAuth)
+	if err != nil {
+		logError(err)
+		return errors.SERVER_ERROR
+	}
+
+	err = s.repo.writeDocument(document,  newAuth, salt)
+	if err != nil {
+		logError(err)
+		return errors.SERVER_ERROR
+	}
+
+	return nil
+}
+
+
 func logError(err error) {
 	if err != nil {
 		log.Printf("[ERROR] %s", err.Error())

@@ -4,8 +4,8 @@ import (
 	"net/http"
 )
 
-const apiPath = "/api/document"
-const debugMode = true
+const documentApiPath = "/api/document"
+const passwordApiPath = "/api/document/password"
 const dataPath = "./data"
 const address = ":8080"
 
@@ -16,6 +16,7 @@ func main() {
 
 	repository.createDataDirectory()
 
-	http.HandleFunc(apiPath, controller.handle)
+	http.HandleFunc(documentApiPath, controller.handleDocument)
+	http.HandleFunc(passwordApiPath, controller.handlePassword)
 	http.ListenAndServe(address, nil)
 }

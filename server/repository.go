@@ -31,7 +31,7 @@ func (r *Repository)  pathForDocument(auth Auth, salt []byte) (string, error) {
 }
 
 func (r *Repository)  pathForSalt(auth Auth) string {
-	return fmt.Sprintf("%s/%s.salt.txt", r.dataPath, auth.email)
+	return fmt.Sprintf("%s/%s.salt.txt", r.dataPath, auth.username)
 }
 
 func (r *Repository)  fileExists(filename string) (bool, error) {
@@ -83,6 +83,17 @@ func (r *Repository)  readSaltFile(auth Auth) ([]byte, error) {
 	return salt, nil
 }
 
+func (r *Repository)  deleteSaltFile(auth Auth) (error) {
+	fileName := r.pathForSalt(auth)
+
+	err := os.Remove(fileName)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 //
 // Document Files
 //
@@ -132,6 +143,7 @@ func (r *Repository)  readDocument(auth Auth, salt []byte) ([]byte, error) {
 	}
 
 	saltedPassword, err := auth.SaltedPassword(salt)
+
 	data, err = ioutil.ReadFile(filename)
 	if err != nil {
 		return data, err
@@ -140,4 +152,37 @@ func (r *Repository)  readDocument(auth Auth, salt []byte) ([]byte, error) {
 	decrypted := decrypt(data, []byte(saltedPassword))
 
 	return decrypted, nil
+}
+
+func (r *Repository)  deleteDocument(auth Auth, salt []byte) (error) {
+	fileName, err := r.pathForDocument(auth, salt)
+	if err != nil {
+		return err
+	}
+
+	err = os.Remove(fileName)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *Repository)  moveDocument(currentAuth Auth, salt []byte, newAuth Auth) error {
+	currentFilename, err := r.pathForDocument(currentAuth, salt)
+	if err != nil {
+		return err
+	}
+
+	newFilename, err := r.pathForDocument(newAuth, salt)
+	if err != nil {
+		return err
+	}
+
+	err = os.Rename(currentFilename, newFilename)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

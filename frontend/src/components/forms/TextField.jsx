@@ -10,7 +10,6 @@ export default class TextField extends React.Component {
     setTimeout(() => {
       window.M.updateTextFields();
       if (this.props.autoFocus) {
-        console.log(this.ref);
         this.ref.current.focus();
       }
     }, 0);
@@ -35,6 +34,7 @@ export default class TextField extends React.Component {
             id={id}
             type={type}
             className={error ? 'invalid' : ''}
+            autoComplete={this.props.autoComplete}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             ref={this.ref} />

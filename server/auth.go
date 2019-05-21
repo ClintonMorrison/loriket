@@ -6,7 +6,7 @@ import (
 )
 
 type Auth struct {
-	email string
+	username string
 	password string
 }
 
@@ -27,7 +27,7 @@ func (a Auth) Signature(salt []byte) (string, error) {
 		return "", err
 	}
 
-	data = append(data, []byte(a.email)...)
+	data = append(data, []byte(a.username)...)
 	data = append(data, []byte(saltedPassword)...)
 
 	return hash(data), nil

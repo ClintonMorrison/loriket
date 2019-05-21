@@ -2,8 +2,6 @@ import sha256 from 'crypto-js/sha256';
 import AES  from 'crypto-js/aes';
 import UTF_8 from 'crypto-js/enc-utf8';
 
-import _ from 'lodash';
-
 const SALT_1 = 'CC352C99A14616AD22678563ECDA5';
 const SALT_2 = '7767B9225CF66B418DD2A39CBC4AA';
 
@@ -13,9 +11,25 @@ export default class AuthService {
     this.document = null;
   }
 
+  hashPassword(password) {
+    return sha256(password + SALT_1).toString();
+  }
+
+  hashToken(token) {
+    return sha256(token + SALT_2).toString();
+  }
+
+  passwordMatchesSession(password) {
+    return password && this.hashPassword(password) === this.getToken();
+  }
+
   setCredentials({ username, password }) {
     sessionStorage.setItem('username', username);
-    sessionStorage.setItem('token', sha256(password + SALT_1).toString());
+    this.setToken(password);
+  }
+
+  setToken(password) {
+    sessionStorage.setItem('token', this.hashPassword(password));
   }
 
   sessionExists() {
@@ -40,11 +54,11 @@ export default class AuthService {
       return null;
     }
 
-    return sha256(token + SALT_2).toString();
+    return this.hashToken(token);
   }
 
-  encryptWithToken(text) {
-    const token = this.getToken();
+  encryptWithToken(text, token = false) {
+    token = token || this.getToken();
     return AES.encrypt(text, token).toString();
   }
 
@@ -58,22 +72,5 @@ export default class AuthService {
     const token = this.getHashedToken();
     const encoded = btoa(`${username}:${token}`);
     return { 'Authorization': `Basic ${encoded}` };
-  }
-
-  createDocument({ username, password }) {
-    this.setCredentials({ username, password });
-    return this.apiService.post("document", {}, this.getHeaders());
-  }
-
-  loadDocument() {
-    return this.apiService.get("document", {}, this.getHeaders()).then(resp => {
-      const rawDocument = _.get(resp, "data.document") || '{}';
-      this.document = JSON.parse(rawDocument);
-      return this.document;
-    });
-  }
-
-  updateDocument() {
-
   }
 }

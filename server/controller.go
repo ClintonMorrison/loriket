@@ -14,6 +14,11 @@ type DocumentResponse struct {
 	Document string `json:"document,omitempty"`
 }
 
+type PasswordRequest struct {
+	Password string `json:"password"`
+	Document string `json:"document"`
+}
+
 type Controller struct {
 	service *Service
 }
@@ -68,32 +73,50 @@ func (c *Controller) getDocument(auth Auth) DocumentResponse {
 	return DocumentResponse{200,"", string(document)}
 }
 
-func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("[REQUEST] %s, %s, %s | %s %s\n", r.RemoteAddr, r.Header.Get("X-Forwarded-For"), r.Header.Get("User-Agent"), r.Method, r.RequestURI)
+func (c *Controller) deleteDocument(auth Auth) DocumentResponse {
+	err := c.service.DeleteDocument(auth)
+	if err != nil {
+		return responseForError(err)
+	}
+
+	return DocumentResponse{204,"", ""}
+}
+
+func (c *Controller) putPassword(auth Auth, newPassword []byte, document []byte) DocumentResponse {
+	err := c.service.UpdatePassword(auth, newPassword, document)
+	if err != nil {
+		return responseForError(err)
+	}
+
+	return DocumentResponse{204, "", ""}
+}
+
+func (c *Controller) processRequest(w http.ResponseWriter, r *http.Request) (*Auth, []byte) {
+	fmt.Printf("[REQUEST] %s %s | %s %s\n", r.Method, r.RequestURI, r.Header.Get("X-Forwarded-For"), r.Header.Get("User-Agent"))
 
 	w.Header().Set("Content-Type", "application/text")
-	if debugMode {
-		w.Header().Set("Access-Control-Allow-Origin", "*") // TODO: for debugging
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization") // TODO: for debugging
-		w.Header().Set("Access-Control-Allow-Methods", "PUT") // TODO: for debugging
-	}
-
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(200)
-		return
-	}
 
 	// Read auth headers
 	auth, err := AuthFromRequest(r)
 	if err != nil {
 		writeResponse(w, invalidRequestResponse)
-		return
+		return nil, nil
 	}
 
 	// Read body
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		writeResponse(w, invalidRequestResponse)
+		return nil, nil
+	}
+
+	return &auth, body
+}
+
+
+func (c *Controller) handleDocument(w http.ResponseWriter, r *http.Request) {
+	auth, body := c.processRequest(w, r)
+	if auth == nil {
 		return
 	}
 
@@ -102,21 +125,49 @@ func (c *Controller) handle(w http.ResponseWriter, r *http.Request) {
 	// Call handler based on method
 	switch r.Method {
 	case "GET":
-		response = c.getDocument(auth)
+		response = c.getDocument(*auth)
 	case "PUT":
-		response = c.putDocument(auth, body)
+		response = c.putDocument(*auth, body)
 	case "POST":
-		response = c.postDocument(auth, body)
+		response = c.postDocument(*auth, body)
+	case "DELETE":
+		response = c.deleteDocument(*auth)
 	default:
 		response = invalidRequestResponse
-		return
 	}
 
 	writeResponse(w, response)
 }
 
+func (c *Controller) handlePassword(w http.ResponseWriter, r *http.Request) {
+	auth, body := c.processRequest(w, r)
+	if auth == nil {
+		return
+	}
+
+	var response DocumentResponse
+
+	request := PasswordRequest{}
+	err := json.Unmarshal(body, &request)
+	if err != nil {
+		writeResponse(w, invalidRequestResponse)
+		return
+	}
+
+	switch r.Method {
+	case "PUT":
+		response = c.putPassword(*auth, []byte(request.Password), []byte(request.Document))
+	default:
+		response = invalidRequestResponse
+	}
+
+	writeResponse(w, response)
+}
+
+
+
 func writeResponse(w http.ResponseWriter, response DocumentResponse) {
-	fmt.Printf("[RESPONSE] %d %s\n", response.Code, response.Error)
+	fmt.Printf("   [RESPONSE] %d %s\n", response.Code, response.Error)
 	w.WriteHeader(response.Code)
 
 	jsonResponse, err := json.Marshal(response)

@@ -13,7 +13,7 @@ export default function Home() {
 
 
       <div className="bird-banner">
-        <img src={`${process.env.PUBLIC_URL}/bird_large.png`} />
+        <img alt="" src={`${process.env.PUBLIC_URL}/bird_large.png`} />
       </div>
 
       <div className="row">
