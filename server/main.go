@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"fmt"
 )
 
 const documentApiPath = "/api/document"
@@ -18,5 +19,6 @@ func main() {
 
 	http.HandleFunc(documentApiPath, controller.handleDocument)
 	http.HandleFunc(passwordApiPath, controller.handlePassword)
+	fmt.Printf("Listening on http://localhost:%s\n", address)
 	http.ListenAndServe(address, nil)
 }

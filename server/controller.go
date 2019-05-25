@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/ClintonMorrison/lorikeet/server/errors"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
@@ -33,11 +32,11 @@ var fallbackErrorJSON, _ = json.Marshal(internalServerError)
 
 func responseForError(err error) DocumentResponse {
 	switch err {
-	case errors.INVALID_USER_NAME:
+	case ERROR_INVALID_USER_NAME:
 		return usernameTakenResponse
-	case errors.INVALID_CREDENTIALS:
+	case ERROR_INVALID_CREDENTIALS:
 		return invalidCredentialsResponse
-	case errors.SERVER_ERROR:
+	case ERROR_SERVER_ERROR:
 	default:
 		return internalServerError
 	}

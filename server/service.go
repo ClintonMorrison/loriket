@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"github.com/ClintonMorrison/lorikeet/server/errors"
 )
 
 type Service struct {
@@ -14,7 +13,7 @@ func (s *Service) checkUserNameFree(auth Auth) error {
 	logError(err)
 
 	if exists {
-		return errors.INVALID_USER_NAME
+		return ERROR_INVALID_USER_NAME
 	}
 
 	return nil
@@ -25,7 +24,7 @@ func (s *Service) saltForUser(auth Auth) ([]byte, error) {
 
 	if err != nil {
 		logError(err)
-		return nil, errors.INVALID_CREDENTIALS
+		return nil, ERROR_INVALID_CREDENTIALS
 	}
 
 	return salt, nil
@@ -36,7 +35,7 @@ func (s *Service) checkDocumentExists(auth Auth, salt []byte) error {
 	logError(err)
 
 	if !exists {
-		return errors.INVALID_CREDENTIALS
+		return ERROR_INVALID_CREDENTIALS
 	}
 
 	return nil
@@ -48,7 +47,7 @@ func (s *Service) createSalt(auth Auth) ([]byte, error) {
 
 	if err != nil {
 		logError(err)
-		return nil, errors.SERVER_ERROR
+		return nil, ERROR_SERVER_ERROR
 	}
 
 	return salt, nil
@@ -68,7 +67,7 @@ func (s *Service) CreateDocument(auth Auth, document []byte) error {
 	err = s.repo.writeDocument(document, auth, salt)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	return nil
@@ -88,7 +87,7 @@ func (s *Service) UpdateDocument(auth Auth, document []byte) error {
 	err = s.repo.writeDocument(document, auth, salt)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	return nil
@@ -108,7 +107,7 @@ func (s *Service) GetDocument(auth Auth) ([]byte, error) {
 	document, err := s.repo.readDocument(auth, salt)
 	if err != nil {
 		logError(err)
-		return nil, errors.SERVER_ERROR
+		return nil, ERROR_SERVER_ERROR
 	}
 
 	return document, nil
@@ -122,19 +121,19 @@ func (s *Service) DeleteDocument(auth Auth) (error) {
 
 	err = s.checkDocumentExists(auth, salt)
 	if err != nil {
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	err = s.repo.deleteDocument(auth, salt)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	err = s.repo.deleteSaltFile(auth)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	return nil
@@ -155,13 +154,13 @@ func (s *Service) UpdatePassword(auth Auth, newPassword []byte, document []byte)
 	err = s.repo.moveDocument(auth, salt, newAuth)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	err = s.repo.writeDocument(document,  newAuth, salt)
 	if err != nil {
 		logError(err)
-		return errors.SERVER_ERROR
+		return ERROR_SERVER_ERROR
 	}
 
 	return nil
