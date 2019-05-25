@@ -3,11 +3,13 @@ package main
 import (
 	"net/http"
 	"errors"
+	"strings"
 )
 
 type Auth struct {
 	username string
 	password string
+	ip string
 }
 
 func (a Auth) SaltedPassword(salt []byte) (string, error) {
@@ -34,10 +36,13 @@ func (a Auth) Signature(salt []byte) (string, error) {
 }
 
 func AuthFromRequest(r *http.Request) (Auth, error) {
-	email, password, ok := r.BasicAuth()
+	username, password, ok := r.BasicAuth()
+	username = strings.ToLower(username)
+	ip := r.Header.Get("X-Forwarded-For")
+
 	if !ok {
 		return Auth{}, errors.New("invalid authorization header")
 	}
 
-	return Auth{email, password}, nil
+	return Auth{username, password, ip}, nil
 }

@@ -12,7 +12,8 @@ const address = ":8080"
 
 func main() {
 	repository := Repository{dataPath}
-	service := Service{&repository}
+	lockoutTable := NewLockoutTable()
+	service := Service{&repository, lockoutTable}
 	controller := Controller{&service}
 
 	repository.createDataDirectory()

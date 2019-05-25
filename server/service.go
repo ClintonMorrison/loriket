@@ -6,6 +6,7 @@ import (
 
 type Service struct {
 	repo *Repository
+	lockoutTable *LockoutTable
 }
 
 func (s *Service) checkUserNameFree(auth Auth) error {
@@ -41,6 +42,27 @@ func (s *Service) checkDocumentExists(auth Auth, salt []byte) error {
 	return nil
 }
 
+func (s *Service) checkAuth(auth Auth) ([]byte, error) {
+	allowed := s.lockoutTable.shouldAllow(auth.ip, auth.username)
+	if !allowed {
+		return nil, ERROR_TOO_MANY_REQUESTS
+	}
+
+	salt, err := s.saltForUser(auth)
+	if err != nil {
+		s.lockoutTable.logFailure(auth.ip, auth.username)
+		return nil, err
+	}
+
+	err = s.checkDocumentExists(auth, salt)
+	if err != nil {
+		s.lockoutTable.logFailure(auth.ip, auth.username)
+		return nil, err
+	}
+
+	return salt, nil
+}
+
 func (s *Service) createSalt(auth Auth) ([]byte, error) {
 	salt, err := s.repo.writeSaltFile(auth)
 	logError(err)
@@ -74,12 +96,7 @@ func (s *Service) CreateDocument(auth Auth, document []byte) error {
 }
 
 func (s *Service) UpdateDocument(auth Auth, document []byte) error {
-	salt, err := s.saltForUser(auth)
-	if err != nil {
-		return err
-	}
-
-	err = s.checkDocumentExists(auth, salt)
+	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return err
 	}
@@ -94,12 +111,7 @@ func (s *Service) UpdateDocument(auth Auth, document []byte) error {
 }
 
 func (s *Service) GetDocument(auth Auth) ([]byte, error) {
-	salt, err := s.saltForUser(auth)
-	if err != nil {
-		return nil, err
-	}
-
-	err = s.checkDocumentExists(auth, salt)
+	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return nil, err
 	}
@@ -114,14 +126,9 @@ func (s *Service) GetDocument(auth Auth) ([]byte, error) {
 }
 
 func (s *Service) DeleteDocument(auth Auth) (error) {
-	salt, err := s.saltForUser(auth)
+	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return err
-	}
-
-	err = s.checkDocumentExists(auth, salt)
-	if err != nil {
-		return ERROR_SERVER_ERROR
 	}
 
 	err = s.repo.deleteDocument(auth, salt)
@@ -150,7 +157,7 @@ func (s *Service) UpdatePassword(auth Auth, newPassword []byte, document []byte)
 		return err
 	}
 
-	newAuth := Auth{auth.username, string(newPassword)}
+	newAuth := Auth{auth.username, string(newPassword), auth.ip}
 	err = s.repo.moveDocument(auth, salt, newAuth)
 	if err != nil {
 		logError(err)

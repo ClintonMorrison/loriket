@@ -2,7 +2,7 @@ package main
 
 import "time"
 
-const errorWindow = time.Hour * -5
+const errorWindow = time.Hour * 5
 const maxErrorsInWindow = 5
 
 type LockoutTable struct {
@@ -10,7 +10,13 @@ type LockoutTable struct {
 	errorTimesByUser map[string][]time.Time
 }
 
-func (l *LockoutTable) allowAction(ip string, username string) bool {
+func NewLockoutTable() *LockoutTable {
+	return &LockoutTable{
+		errorTimesByIP: make(map[string][]time.Time, 0),
+		errorTimesByUser: make(map[string][]time.Time, 0)}
+}
+
+func (l *LockoutTable) shouldAllow(ip string, username string) bool {
 	l.purgeErrors(ip, username)
 
 	byIP := l.errorTimesByIP[ip]
@@ -30,7 +36,7 @@ func (l *LockoutTable) logFailure(ip string, username string) {
 }
 
 func (l *LockoutTable) purgeErrors(ip string, username string) {
-	earlistTime := time.Now().Add(errorWindow)
+	earlistTime := time.Now().Add(errorWindow * -1)
 
 	// Errors by IP
 	ipErrorTimes := l.errorTimesByIP[ip]
