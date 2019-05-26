@@ -28,6 +28,7 @@ export default class AuthService {
   }
 
   updateDocument({ document, password }) {
+    console.log({ document, password });
     const unencryptedDocument = JSON.stringify(document);
 
     const encryptedDocument = password ?
@@ -45,18 +46,8 @@ export default class AuthService {
   }
 
   updatePassword(password) {
-    const token = this.authService.firstHash(password);
-    const hashedToken = this.authService.secondHash(token);
-
     return this.loadDocument().then(document => {
-      const unencryptedDocument = JSON.stringify(document);
-      const encryptedDocument = this.authService.encryptWithToken(unencryptedDocument, token);
-
-      return this.apiService.put(
-        "document/password",
-        { password: hashedToken, document: encryptedDocument },
-        this.authService.getHeaders()
-      ).then(() => this.authService.setToken(password));
-    });
+      return this.updateDocument({ document, password });
+    }).then(() => this.authService.setPassword(password));
   }
 }

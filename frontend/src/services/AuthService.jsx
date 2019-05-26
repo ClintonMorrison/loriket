@@ -29,10 +29,10 @@ export default class AuthService {
 
   setCredentials({ username, password }) {
     sessionStorage.setItem('username', username);
-    this.setToken(password);
+    this.setPassword(password);
   }
 
-  setToken(password) {
+  setPassword(password) {
     sessionStorage.setItem('token', this.firstHash(password));
   }
 

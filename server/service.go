@@ -75,7 +75,7 @@ func (s *Service) createSalt(auth Auth) ([]byte, error) {
 	return salt, nil
 }
 
-func (s *Service) CreateDocument(auth Auth, document []byte) error {
+func (s *Service) CreateDocument(auth Auth, document string) error {
 	err := s.checkUserNameFree(auth)
 	if err != nil {
 		return err
@@ -86,7 +86,7 @@ func (s *Service) CreateDocument(auth Auth, document []byte) error {
 		return err
 	}
 
-	err = s.repo.writeDocument(document, auth, salt)
+	err = s.repo.writeDocument([]byte(document), auth, salt)
 	if err != nil {
 		logError(err)
 		return ERROR_SERVER_ERROR
@@ -95,13 +95,13 @@ func (s *Service) CreateDocument(auth Auth, document []byte) error {
 	return nil
 }
 
-func (s *Service) UpdateDocument(auth Auth, document []byte) error {
+func (s *Service) UpdateDocument(auth Auth, document string) error {
 	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return err
 	}
 
-	err = s.repo.writeDocument(document, auth, salt)
+	err = s.repo.writeDocument([]byte(document), auth, salt)
 	if err != nil {
 		logError(err)
 		return ERROR_SERVER_ERROR
@@ -146,7 +146,7 @@ func (s *Service) DeleteDocument(auth Auth) (error) {
 	return nil
 }
 
-func (s *Service) UpdatePassword(auth Auth, newPassword []byte, document []byte) error {
+func (s *Service) UpdateDocumentAndPassword(auth Auth, newPassword string, document string) error {
 	salt, err := s.saltForUser(auth)
 	if err != nil {
 		return err
@@ -164,7 +164,7 @@ func (s *Service) UpdatePassword(auth Auth, newPassword []byte, document []byte)
 		return ERROR_SERVER_ERROR
 	}
 
-	err = s.repo.writeDocument(document,  newAuth, salt)
+	err = s.repo.writeDocument([]byte(document),  newAuth, salt)
 	if err != nil {
 		logError(err)
 		return ERROR_SERVER_ERROR
