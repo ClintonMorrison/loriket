@@ -18,6 +18,12 @@ type PasswordRequest struct {
 	Document string `json:"document"`
 }
 
+type DocumentRequest struct {
+	Password string `json:"password,omitempty"`
+	Document string `json:"document"`
+}
+
+
 type Controller struct {
 	service *Service
 }
@@ -34,6 +40,8 @@ var fallbackErrorJSON, _ = json.Marshal(internalServerError)
 
 func responseForError(err error) DocumentResponse {
 	switch err {
+	case ERROR_BAD_REQUEST:
+		return invalidRequestResponse
 	case ERROR_INVALID_USER_NAME:
 		return usernameTakenResponse
 	case ERROR_INVALID_CREDENTIALS:
@@ -48,9 +56,25 @@ func responseForError(err error) DocumentResponse {
 	return internalServerError
 }
 
+func parseDocumentRequestBody(body []byte) (*DocumentRequest, error) {
+	documentRequest := &DocumentRequest{}
+	err := json.Unmarshal(body, documentRequest)
+	if err != nil {
+		logError(err)
+		return nil, ERROR_BAD_REQUEST
+	}
 
-func (c *Controller) postDocument(auth Auth, document []byte) DocumentResponse {
-	err := c.service.CreateDocument(auth, document)
+	return documentRequest, nil
+}
+
+
+func (c *Controller) postDocument(auth Auth, body []byte) DocumentResponse {
+	request, err := parseDocumentRequestBody(body)
+	if err != nil {
+		return responseForError(err)
+	}
+
+	err = c.service.CreateDocument(auth, []byte(request.Document))
 	if err != nil {
 		return responseForError(err)
 	}
@@ -58,8 +82,13 @@ func (c *Controller) postDocument(auth Auth, document []byte) DocumentResponse {
 	return DocumentResponse{201, "", ""}
 }
 
-func (c *Controller) putDocument(auth Auth, document []byte) DocumentResponse {
-	err := c.service.UpdateDocument(auth, document)
+func (c *Controller) putDocument(auth Auth, body []byte) DocumentResponse {
+	request, err := parseDocumentRequestBody(body)
+	if err != nil {
+		return responseForError(err)
+	}
+
+	err = c.service.UpdateDocument(auth, []byte(request.Document))
 	if err != nil {
 		return responseForError(err)
 	}
@@ -102,6 +131,7 @@ func (c *Controller) processRequest(w http.ResponseWriter, r *http.Request) (*Au
 	// Read auth headers
 	auth, err := AuthFromRequest(r)
 	if err != nil {
+		logDebug(err.Error())
 		writeResponse(w, invalidRequestResponse)
 		return nil, nil
 	}
@@ -109,6 +139,7 @@ func (c *Controller) processRequest(w http.ResponseWriter, r *http.Request) (*Au
 	// Read body
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
+		logDebug(err.Error())
 		writeResponse(w, invalidRequestResponse)
 		return nil, nil
 	}

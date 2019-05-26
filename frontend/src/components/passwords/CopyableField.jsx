@@ -34,6 +34,7 @@ export default class CopyableField extends React.Component {
       <button
         className="copy-button btn-small waves-effect waves-light btn-negative"
         onClick={(e) => this.copyToClipboard(e)}
+        disabled={!this.props.value}
         ref={this.buttonRef}>
         <i className="material-icons left">content_copy</i>
         {this.props.title}

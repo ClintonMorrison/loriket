@@ -12,7 +12,10 @@ export default class AuthService {
     const initialDocument = JSON.stringify({ passwords: [] });
     const encryptedDocument = this.authService.encryptWithToken(initialDocument);
 
-    return this.apiService.post("document", encryptedDocument, this.authService.getHeaders());
+    return this.apiService.post("document", {
+      document: encryptedDocument,
+      password: this.authService.doubleHash(password)
+    }, this.authService.getHeaders());
   }
 
   loadDocument() {
@@ -24,11 +27,17 @@ export default class AuthService {
     });
   }
 
-  updateDocument(document) {
+  updateDocument({ document, password }) {
     const unencryptedDocument = JSON.stringify(document);
-    const encryptedDocument = this.authService.encryptWithToken(unencryptedDocument);
 
-    return this.apiService.put("document", encryptedDocument, this.authService.getHeaders());
+    const encryptedDocument = password ?
+      this.authService.encryptWithToken(unencryptedDocument, this.authService.firstHash(password)) :
+      this.authService.encryptWithToken(unencryptedDocument);
+
+    return this.apiService.put("document", {
+      document: encryptedDocument,
+      password: password ? this.authService.doubleHash(password) : undefined
+    }, this.authService.getHeaders());
   }
 
   deleteDocument() {
@@ -36,8 +45,8 @@ export default class AuthService {
   }
 
   updatePassword(password) {
-    const token = this.authService.hashPassword(password);
-    const hashedToken = this.authService.hashToken(token);
+    const token = this.authService.firstHash(password);
+    const hashedToken = this.authService.secondHash(token);
 
     return this.loadDocument().then(document => {
       const unencryptedDocument = JSON.stringify(document);

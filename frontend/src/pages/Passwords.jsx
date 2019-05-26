@@ -51,10 +51,11 @@ export default class Passwords extends React.Component {
 
     this.props.services.documentService.loadDocument().then(document => {
       document.passwords = [...document.passwords, password];
-      this.props.services.documentService.updateDocument(document);
+      return this.props.services.documentService.updateDocument({ document });
     }).then(() => {
       this.props.history.push(`/passwords/${id}`);
-    }).catch(() => {
+    }).catch((err) => {
+      console.log('error', err);
       this.props.history.push("/logout");
     });
   }

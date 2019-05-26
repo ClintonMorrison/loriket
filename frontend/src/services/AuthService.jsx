@@ -11,16 +11,20 @@ export default class AuthService {
     this.document = null;
   }
 
-  hashPassword(password) {
+  firstHash(password) {
     return sha256(password + SALT_1).toString();
   }
 
-  hashToken(token) {
+  secondHash(token) {
     return sha256(token + SALT_2).toString();
   }
 
+  doubleHash(password) {
+    return this.secondHash(this.firstHash(password));
+  }
+
   passwordMatchesSession(password) {
-    return password && this.hashPassword(password) === this.getToken();
+    return password && this.firstHash(password) === this.getToken();
   }
 
   setCredentials({ username, password }) {
@@ -29,7 +33,7 @@ export default class AuthService {
   }
 
   setToken(password) {
-    sessionStorage.setItem('token', this.hashPassword(password));
+    sessionStorage.setItem('token', this.firstHash(password));
   }
 
   sessionExists() {
@@ -54,7 +58,7 @@ export default class AuthService {
       return null;
     }
 
-    return this.hashToken(token);
+    return this.secondHash(token);
   }
 
   encryptWithToken(text, token = false) {

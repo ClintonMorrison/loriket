@@ -9,12 +9,13 @@ const documentApiPath = "/api/document"
 const passwordApiPath = "/api/document/password"
 const dataPath = "./data"
 const address = ":8080"
+const debugMode = true
 
 func main() {
-	repository := Repository{dataPath}
+	repository := &Repository{dataPath}
 	lockoutTable := NewLockoutTable()
-	service := Service{&repository, lockoutTable}
-	controller := Controller{&service}
+	service := &Service{repository, lockoutTable}
+	controller := Controller{service}
 
 	repository.createDataDirectory()
 
