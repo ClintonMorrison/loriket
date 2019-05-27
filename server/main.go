@@ -20,5 +20,8 @@ func main() {
 
 	http.HandleFunc(documentApiPath, controller.handleDocument)
 	fmt.Printf("Listening on http://localhost:%s\n", address)
-	http.ListenAndServe(address, nil)
+	err := http.ListenAndServe(address, nil)
+	if err != nil {
+		panic(err)
+	}
 }

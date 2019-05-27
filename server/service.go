@@ -10,10 +10,16 @@ type Service struct {
 }
 
 func (s *Service) checkUserNameFree(auth Auth) error {
+	allowed := s.lockoutTable.shouldAllow(auth.ip, auth.username)
+	if !allowed {
+		return ERROR_TOO_MANY_REQUESTS
+	}
+
 	exists, err := s.repo.saltFileExists(auth)
 	logError(err)
 
 	if exists {
+		s.lockoutTable.logFailure(auth.ip, auth.username)
 		return ERROR_INVALID_USER_NAME
 	}
 

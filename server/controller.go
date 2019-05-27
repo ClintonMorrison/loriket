@@ -31,7 +31,7 @@ type Controller struct {
 var invalidRequestResponse = DocumentResponse{400,"Invalid request.", ""}
 var usernameTakenResponse = DocumentResponse{401,"Username already taken.", ""}
 var invalidCredentialsResponse = DocumentResponse{401,"Invalid user or credentials.", ""}
-var tooManyRequestsResponse = DocumentResponse{429,"Too many failed login attempts. Try again in a few hours.", ""}
+var tooManyRequestsResponse = DocumentResponse{429,"Too many failed attempts. Try again in a few hours.", ""}
 
 var internalServerError = DocumentResponse{500, "Server error. Please try again later.", ""}
 
