@@ -31,8 +31,14 @@ func (l *LockoutTable) shouldAllow(ip string, username string) bool {
 
 func (l *LockoutTable) logFailure(ip string, username string) {
 	t := time.Now()
-	l.errorTimesByIP[ip] = append(l.errorTimesByIP[ip], t)
-	l.errorTimesByUser[username] = append(l.errorTimesByIP[username], t)
+
+	if len(ip) > 0 {
+		l.errorTimesByIP[ip] = append(l.errorTimesByIP[ip], t)
+	}
+
+	if len(username) > 0 {
+		l.errorTimesByUser[username] = append(l.errorTimesByIP[username], t)
+	}
 }
 
 func (l *LockoutTable) purgeErrors(ip string, username string) {

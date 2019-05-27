@@ -10,7 +10,7 @@ type Service struct {
 }
 
 func (s *Service) checkUserNameFree(auth Auth) error {
-	allowed := s.lockoutTable.shouldAllow(auth.ip, auth.username)
+	allowed := s.lockoutTable.shouldAllow(auth.ip, "")
 	if !allowed {
 		return ERROR_TOO_MANY_REQUESTS
 	}
@@ -19,7 +19,7 @@ func (s *Service) checkUserNameFree(auth Auth) error {
 	logError(err)
 
 	if exists {
-		s.lockoutTable.logFailure(auth.ip, auth.username)
+		s.lockoutTable.logFailure(auth.ip, "")
 		return ERROR_INVALID_USER_NAME
 	}
 
