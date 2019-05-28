@@ -1,11 +1,10 @@
-package main
+package server
 
 import "fmt"
 
+
 func logDebug(msg string) {
-	if debugMode {
-		fmt.Printf("[DEBUG] %s", msg)
-	}
+	fmt.Printf("[DEBUG] %s", msg)
 }
 
 func logInfo(msg string) {

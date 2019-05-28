@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"net/http"
@@ -6,11 +6,8 @@ import (
 )
 
 const documentApiPath = "/api/document"
-const dataPath = "./data"
-const address = ":8080"
-const debugMode = true
 
-func main() {
+func Run(dataPath string, address string) {
 	repository := &Repository{dataPath}
 	lockoutTable := NewLockoutTable()
 	service := &Service{repository, lockoutTable}
@@ -25,3 +22,4 @@ func main() {
 		panic(err)
 	}
 }
+
