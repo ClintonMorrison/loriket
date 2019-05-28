@@ -4,6 +4,7 @@ import (
 	"os"
 	"io/ioutil"
 	"fmt"
+	"github.com/ClintonMorrison/lorikeet/internal/storage"
 )
 
 
@@ -34,28 +35,13 @@ func (r *Repository)  pathForSalt(auth Auth) string {
 	return fmt.Sprintf("%s/%s.salt.txt", r.dataPath, auth.username)
 }
 
-func (r *Repository)  fileExists(filename string) (bool, error) {
-	stats, err := os.Stat(filename)
-
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-
-	if err != nil {
-		return false, err
-	}
-
-	return !stats.IsDir(), nil
-}
-
 //
 // Salt Files
 //
 func (r *Repository)  saltFileExists(auth Auth) (bool, error) {
 	filename := r.pathForSalt(auth)
-	return r.fileExists(filename)
+	return storage.FileExists(filename)
 }
-
 
 func (r *Repository)  writeSaltFile(auth Auth) ([]byte, error) {
 	fileName := r.pathForSalt(auth)
@@ -103,7 +89,7 @@ func (r *Repository)  documentExists(auth Auth, salt []byte) (bool, error) {
 		return false, err
 	}
 
-	return r.fileExists(filename)
+	return storage.FileExists(filename)
 }
 
 func (r *Repository)  writeDocument(data []byte, auth Auth, salt []byte) error {

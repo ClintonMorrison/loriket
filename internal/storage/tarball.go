@@ -1,4 +1,4 @@
-package backup
+package storage
 
 import (
 	"errors"
@@ -122,8 +122,6 @@ func addFileToTarWriter(filePath string, tarWriter *tar.Writer) error {
 	}
 
 	err = tarWriter.WriteHeader(header)
-
-	fmt.Println("Writing header: ", header)
 
 	if err != nil {
 		return errors.New(fmt.Sprintf("Could not write header for file '%s', got error '%s'", filePath, err.Error()))

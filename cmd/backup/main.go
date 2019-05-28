@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ClintonMorrison/lorikeet/internal/backup"
+	"github.com/ClintonMorrison/lorikeet/internal/storage"
 	"time"
 	"fmt"
 	"os"
@@ -9,9 +9,8 @@ import (
 )
 
 func main() {
-
 	// Make directory for backups
-	err := os.Mkdir(config.DATA_PATH, 0700)
+	err := os.Mkdir(config.BACKUP_PATH, 0700)
 	if err != nil && !os.IsExist(err) {
 		panic(err)
 	}
@@ -19,5 +18,8 @@ func main() {
 	timeStamp := time.Now().Format(time.RFC3339)
 	outputPath := fmt.Sprintf("%s/backup-%s.tar.gz", config.BACKUP_PATH, timeStamp)
 
-	backup.ToTarball(config.DATA_PATH, outputPath)
+	err = storage.ToTarball(config.DATA_PATH, outputPath)
+	if err != nil {
+		panic(err)
+	}
 }
