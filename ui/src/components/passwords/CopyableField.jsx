@@ -1,27 +1,33 @@
 import React from 'react';
 import _ from 'lodash';
 import BasicField from "./BasicField";
+import ClipboardJS from 'clipboard';
 
 import './CopyableField.scss';
+
+const checkIcon = `<i class="material-icons">check</i>`;
 
 export default class CopyableField extends React.Component {
   constructor(props) {
     super(props);
-    this.buttonRef = React.createRef();
+    this.id = _.uniqueId('copyable-field-');
   }
 
-  copyToClipboard(e) {
-    e.preventDefault();
-    const el = document.createElement('textarea');
-    el.value = this.props.value;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    e.target.focus();
-    this.setState({ copied: true });
-  };
+  componentDidMount() {
+    console.log(ClipboardJS);
+    this.clipboard = new ClipboardJS(`#${this.id}`);
+    this.clipboard.on('success', () => {
+      window.M.toast({html: `${checkIcon}${this.props.successMessage}`, classes: 'copy-success' });
+    });
+  }
 
+  componentWillUnmount() {
+    this.clipboard.destroy();
+  }
+
+  onClick(e) {
+    e.preventDefault();
+  };
 
   getValue() {
     return this.props.mask ?
@@ -32,10 +38,11 @@ export default class CopyableField extends React.Component {
   renderToggleLink() {
     return (
       <button
+        id={this.id}
         className="copy-button btn-small waves-effect waves-light btn-negative"
-        onClick={(e) => this.copyToClipboard(e)}
-        disabled={!this.props.value}
-        ref={this.buttonRef}>
+        data-clipboard-text={this.props.value}
+        onClick={(e) => this.onClick(e)}
+        disabled={!this.props.value}>
         <i className="material-icons left">content_copy</i>
         {this.props.title}
       </button>

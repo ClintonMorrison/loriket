@@ -29,16 +29,30 @@ export default class Item extends React.Component {
   render() {
     const { item } = this.props;
 
-    let userField = <CopyableField title="Username" value={item.username} />;
+    let userField = (
+      <CopyableField
+        title="Username"
+        value={item.username}
+        successMessage={`Copied username for ${item.title}`} />
+    );
     if (!item.username && item.email) {
-      userField = <CopyableField title="Email" value={item.email} />;
+      userField = (
+        <CopyableField
+          title="Email"
+          value={item.email}
+          successMessage={`Copied email for ${item.title}`} />
+      );
     }
 
     return (
       <li className="cp-item collection-item">
         <span className="title">{this.renderTitle()}</span>
         {userField}
-        <CopyableField title="Password" value={item.password} mask />
+        <CopyableField
+          title="Password"
+          value={item.password}
+          successMessage={`Copied password for ${item.title}`}
+          mask />
         {this.renderViewButton()}
       </li>
     );
