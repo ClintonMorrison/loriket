@@ -1,14 +1,29 @@
-$bird-blue: desaturate(#2D2CD2, 20%);
-$bird-orange: #FF6A00;
-$bird-light-orange: #FFAB00;
-$bird-green: #00A71B;
-$bird-yellow: darken(#DBE100, 15%);
+// Colours
+$bird-dark-blue: #1A2668;
+$bird-blue: #164ABC;
+$bird-dark-orange: #DA5A14;
+$bird-orange: #EB9417;
+$bird-green: #3F9331;
+$bird-yellow: #F6D131;
+$bird-white: #FFF;
 
+$background-color: $bird-dark-blue;
+$foreground-color: $bird-white;
+
+// Uses
+$header-color: $bird-green;
+$button-color: $bird-blue;
+$link-color: $bird-blue;
+
+$negative-color: $bird-dark-orange;
+$neutral-color: $bird-orange;
+
+// Overrides
 $primary-color: $bird-green;
 $primary-color-light: lighten($primary-color, 10%);
 $primary-color-dark: darken($primary-color, 10%);
 
-$secondary-color: $bird-blue; // $bird-orange; //$bird-blue;
+$secondary-color: $bird-blue;
+
 $success-color: $bird-green;
-$error-color: $bird-orange; //$bird-yellow;
-$link-color: $bird-blue;
+$error-color: $bird-dark-orange;

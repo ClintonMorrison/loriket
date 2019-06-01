@@ -116,7 +116,7 @@ export default class Details extends React.Component {
             onChange={val => this.updateItem('notes', val)} />
 
           <div className="actions">
-            <Link className="waves-effect waves-light grey btn" to="/passwords">Cancel</Link>
+            <Link className="waves-effect waves-light btn-secondary btn" to="/passwords">Cancel</Link>
             <button
               className="waves-effect waves-light btn"
               onClick={(e) => this.handleSave(e)}>Save</button>
