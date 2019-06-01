@@ -13,19 +13,17 @@ type Repository struct {
 }
 
 func (r *Repository) createDataDirectory() {
-	err := os.Mkdir(r.dataPath, 0700)
+	err := storage.CreateDirectory(r.dataPath)
 
-	if err == nil || os.IsExist(err) {
-		return
+	if err != nil {
+		panic(err)
 	}
-
-	panic(err)
 }
 
 func (r *Repository)  pathForDocument(auth Auth, salt []byte) (string, error) {
-	signature, error := auth.Signature(salt)
-	if error != nil {
-		return "", error
+	signature, err := auth.Signature(salt)
+	if err != nil {
+		return "", err
 	}
 
 	return fmt.Sprintf("%s/%s.txt", r.dataPath, signature), nil

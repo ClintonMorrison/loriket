@@ -15,3 +15,14 @@ func FileExists(filename string) (bool, error) {
 
 	return !stats.IsDir(), nil
 }
+
+func CreateDirectory(directoryName string) error {
+	err := os.Mkdir(directoryName, 0700)
+
+	if err == nil || os.IsExist(err) {
+		return nil
+	}
+
+	return err
+}
+

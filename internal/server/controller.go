@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"fmt"
+	"log"
 )
 
 type DocumentResponse struct {
@@ -26,6 +26,7 @@ type DocumentRequest struct {
 
 type Controller struct {
 	service *Service
+	requestLogger *log.Logger
 }
 
 var invalidRequestResponse = DocumentResponse{400,"Invalid request.", ""}
@@ -60,7 +61,6 @@ func parseDocumentRequestBody(body []byte) (*DocumentRequest, error) {
 	documentRequest := &DocumentRequest{}
 	err := json.Unmarshal(body, documentRequest)
 	if err != nil {
-		logError(err)
 		return nil, ERROR_BAD_REQUEST
 	}
 
@@ -124,23 +124,19 @@ func (c *Controller) deleteDocument(auth Auth) DocumentResponse {
 }
 
 func (c *Controller) parseRequest(w http.ResponseWriter, r *http.Request) (*Auth, []byte) {
-	fmt.Printf("[REQUEST] %s %s | %s %s\n", r.Method, r.RequestURI, r.Header.Get("X-Forwarded-For"), r.Header.Get("User-Agent"))
-
 	w.Header().Set("Content-Type", "application/text")
 
 	// Read auth headers
 	auth, err := AuthFromRequest(r)
 	if err != nil {
-		logDebug(err.Error())
-		writeResponse(w, invalidRequestResponse)
+		c.writeResponse(r, w, invalidRequestResponse)
 		return nil, nil
 	}
 
 	// Read body
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		logDebug(err.Error())
-		writeResponse(w, invalidRequestResponse)
+		c.writeResponse(r, w, invalidRequestResponse)
 		return nil, nil
 	}
 
@@ -170,12 +166,25 @@ func (c *Controller) handleDocument(w http.ResponseWriter, r *http.Request) {
 		response = invalidRequestResponse
 	}
 
-	writeResponse(w, response)
+	c.writeResponse(r, w, response)
 }
 
+func (c *Controller) logRequest(r *http.Request, response DocumentResponse) {
+	ip := r.Header.Get("X-Forwarded-For")
+	result := "OK"
+	if response.Error != "" {
+		result = response.Error
+	}
 
-func writeResponse(w http.ResponseWriter, response DocumentResponse) {
-	fmt.Printf("   [RESPONSE] %d %s\n", response.Code, response.Error)
+	c.requestLogger.Printf(
+		"%s %s | %d [%s] | %s\n",
+		r.Method, r.RequestURI,
+		response.Code, result,
+		ip)
+}
+
+func (c *Controller) writeResponse(r *http.Request, w http.ResponseWriter, response DocumentResponse) {
+	c.logRequest(r, response)
 	w.WriteHeader(response.Code)
 
 	jsonResponse, err := json.Marshal(response)

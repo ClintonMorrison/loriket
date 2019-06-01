@@ -1,12 +1,17 @@
 package server
 
-import "fmt"
+import (
+	"log"
+	"os"
+	"io"
+)
 
+func createLogger(filename string, prefix string) (*log.Logger, error) {
+	file, err := os.OpenFile(filename, os.O_CREATE | os.O_APPEND | os.O_RDWR, 0700)
+	if err != nil && !os.IsExist(err) {
+		return nil, err
+	}
 
-func logDebug(msg string) {
-	fmt.Printf("[DEBUG] %s", msg)
-}
-
-func logInfo(msg string) {
-	fmt.Printf("[INFO] %s", msg)
+	writer := io.MultiWriter(os.Stdout, file)
+	return log.New(writer, prefix, log.LstdFlags), nil
 }

@@ -1,13 +1,18 @@
 .cp-item {
   display: grid;
   justify-content: space-between;
-  grid-template-columns: calc(100% - 350px) 150px 150px 50px;
+  grid-template-columns: calc(100% - 395px) 150px 150px 50px;
+  grid-gap: 0 15px;
 
   .title {
     font-size: 16px;
     font-weight: 600;
     text-overflow: ellipsis;
     overflow-x: hidden;
+  }
+
+  button {
+    width: 100%;
   }
 
   @media screen and (max-width: 550px) {
