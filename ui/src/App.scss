@@ -2,6 +2,11 @@
 @import '~materialize-css/sass/materialize';
 
 .cp-app {
+  color: $foreground-color;
+  background-color: $background-color;
+}
+
+.cp-app {
   display: flex;
   min-height: 100vh;
   flex-direction: column;

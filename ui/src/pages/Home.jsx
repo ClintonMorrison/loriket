@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Home.scss';
+import MainLogo from "../components/icons/MainLogo";
+import Heart from "../components/icons/Heart";
+import Bloom from "../components/icons/Bloom";
+import PadLock from "../components/icons/PadLock";
 
+/**
+ <img alt="" src={`${process.env.PUBLIC_URL}/bird_large.png`} />
+ */
 export default function Home() {
   return (
     <div className="cp-home">
@@ -13,13 +20,13 @@ export default function Home() {
 
 
       <div className="bird-banner">
-        <img alt="" src={`${process.env.PUBLIC_URL}/bird_large.png`} />
+        <MainLogo />
       </div>
 
       <div className="row">
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">spa</i>
+            <Bloom />
             <h5 className="promo-caption">Easy</h5>
             <p className="light center">
               You can stop keeping track of your passwords. It's easy to manage your passwords with Lorikeet.
@@ -29,7 +36,7 @@ export default function Home() {
 
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">vpn_key</i>
+            <PadLock />
             <h5 className="promo-caption">Secure</h5>
             <p className="light center">
               With strong AES encryption on the client-side and server-side, you don't need to worry about your passwords.
@@ -39,7 +46,7 @@ export default function Home() {
 
         <div className="col s12 m4">
           <div className="center promo promo-example">
-            <i className="material-icons large">favorite</i>
+            <Heart />
             <h5 className="promo-caption">Free</h5>
             <p className="light center">
               Lorikeet is free to use, and <a href="https://github.com/ClintonMorrison/lorikeet">open source</a>.

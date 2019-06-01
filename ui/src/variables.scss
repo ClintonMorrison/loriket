@@ -6,9 +6,10 @@ $bird-orange: #EB9417;
 $bird-green: #3F9331;
 $bird-yellow: #F6D131;
 $bird-white: #FFF;
+$bird-black: #000;
 
-$background-color: $bird-dark-blue;
-$foreground-color: $bird-white;
+$background-color: $bird-white;
+$foreground-color: $bird-black;
 
 // Uses
 $header-color: $bird-green;
@@ -18,12 +19,20 @@ $link-color: $bird-blue;
 $negative-color: $bird-dark-orange;
 $neutral-color: $bird-orange;
 
-// Overrides
+// Materialize Variable Overrides
 $primary-color: $bird-green;
 $primary-color-light: lighten($primary-color, 10%);
 $primary-color-dark: darken($primary-color, 10%);
 
 $secondary-color: $bird-blue;
 
-$success-color: $bird-green;
+$positive-color: $bird-green;
 $error-color: $bird-dark-orange;
+
+/*
+$input-border-color: #424776;
+$input-focus-color: $bird-white;
+$collection-bg-color: $background-color;
+$collection-border-color: #424776;
+$off-black: $foreground-color;
+*/

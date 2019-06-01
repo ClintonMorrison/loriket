@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import './Navigation.scss';
 
 const loggedOutItems = [
-  <li key="register"><Link to="/register">Register</Link></li>,
+  <li key="register"><Link className="btn waves-effect waves-light" to="/register">Sign Up</Link></li>,
   <li key="login"><Link to="/login">Login</Link></li>,
 ];
 

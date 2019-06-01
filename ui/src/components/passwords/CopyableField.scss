@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .cp-copyable-field {
   display: flex;
 
@@ -10,6 +12,7 @@
   background-color: black;
 
   i {
+    color: $positive-color;
     margin-right: .5rem;
   }
 }
