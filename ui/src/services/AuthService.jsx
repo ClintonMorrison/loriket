@@ -13,12 +13,12 @@ export default class AuthService {
 
   firstHash(password) {
     const username = this.getUsername();
-    return sha256(password + SALT_1).toString(); // sha256(password + username + SALT_1).toString();
+    return sha256(password + username + SALT_1).toString();
   }
 
   secondHash(token) {
     const username = this.getUsername();
-    return sha256(token + SALT_2).toString(); // sha256(token + username + SALT_2).toString();
+    return sha256(token + username + SALT_2).toString();
   }
 
   doubleHash(password) {

@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"errors"
+	"strings"
 )
 
 type Auth struct {
@@ -36,7 +37,7 @@ func (a Auth) Signature(salt []byte) (string, error) {
 
 func AuthFromRequest(r *http.Request) (Auth, error) {
 	username, password, ok := r.BasicAuth()
-	// username = strings.ToLower(username) TODO
+	username = strings.ToLower(username)
 	ip := r.Header.Get("X-Forwarded-For")
 
 	if !ok {
