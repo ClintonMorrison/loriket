@@ -1,13 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
+import uuid from "uuid/v4";
+
 import Collection from "../components/passwords/Collection";
 import Loader from "../components/Loader";
 import TextField from "../components/forms/TextField";
+import Sort from "../components/passwords/Sort";
 
 import './Passwords.scss';
-import uuid from "uuid/v4";
-import Sort from "../components/passwords/Sort";
 
 export default class Passwords extends React.Component {
   constructor(props) {
