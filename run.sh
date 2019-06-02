@@ -1,1 +1,1 @@
-sh build.sh && ./server
+sh build.sh && ./doBackup && ./server
