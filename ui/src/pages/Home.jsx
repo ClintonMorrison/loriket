@@ -7,21 +7,18 @@ import Heart from "../components/icons/Heart";
 import Bloom from "../components/icons/Bloom";
 import PadLock from "../components/icons/PadLock";
 
-/**
- <img alt="" src={`${process.env.PUBLIC_URL}/bird_large.png`} />
- */
 export default function Home() {
   return (
     <div className="cp-home">
+      <div className="bird-banner">
+        <MainLogo />
+      </div>
+
       <div className="heading">
         <h1>Lorikeet</h1>
         <p className="subtitle">A secure online password manager.</p>
       </div>
 
-
-      <div className="bird-banner">
-        <MainLogo />
-      </div>
 
       <div className="row">
         <div className="col s12 m4">

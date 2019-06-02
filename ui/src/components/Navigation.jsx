@@ -44,7 +44,9 @@ export class Navigation extends React.Component {
       <div className="cp-navigation">
         <nav>
           <div className="nav-wrapper">
-            <Link to="/" className="brand-logo">Lorikeet</Link>
+            <Link to="/" className="brand-logo">
+              Lorikeet
+            </Link>
             <a href="#" data-target="mobile-demo" className="sidenav-trigger right hide-on-med-and-up">
               <i className="material-icons">menu</i>
             </a>
