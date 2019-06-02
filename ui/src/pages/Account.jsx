@@ -100,13 +100,11 @@ export default class Account extends React.Component {
           <form className="col s12">
             <h2>Change Password</h2>
             <p>
-              <strong>Please write down your new password and keep it safe. </strong>
-            </p>
-
-            <p>
+              Please write down your new password and keep it safe.
               Because of how your data will be encrypted, it will not be possible to regain
               control of your account if you forget.
             </p>
+
             <TextField
               label="Old Password"
               id="old-passwrd"

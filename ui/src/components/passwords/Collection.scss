@@ -1,0 +1,10 @@
+.cp-collection {
+  &.collection {
+    border-width: 0;
+  }
+
+  li.collection-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
