@@ -66,7 +66,6 @@ export default class Details extends React.Component {
             autoFocus
             label="Title"
             id="title"
-            icon="title"
             value={item.title}
             error={this.state.errors.title}
             onChange={val => this.updateItem('title', val)} />
@@ -74,7 +73,6 @@ export default class Details extends React.Component {
           <TextField
             label="Username"
             id="username"
-            icon="person"
             value={item.username}
             error={this.state.errors.username}
             onChange={val => this.updateItem('username', val)} />
@@ -83,7 +81,6 @@ export default class Details extends React.Component {
             label="Password"
             id="password"
             type="text"
-            icon="vpn_key"
             value={item.password}
             error={this.state.errors.password}
             onChange={val => this.updateItem('password', val)} />
@@ -92,7 +89,6 @@ export default class Details extends React.Component {
             label="Email"
             id="email"
             type="text"
-            icon="email"
             value={item.email}
             error={this.state.errors.email}
             onChange={val => this.updateItem('email', val)} />
@@ -101,7 +97,6 @@ export default class Details extends React.Component {
             label="Website"
             id="website"
             type="text"
-            icon="cloud"
             value={item.website}
             error={this.state.errors.website}
             onChange={val => this.updateItem('website', val)} />
@@ -110,7 +105,6 @@ export default class Details extends React.Component {
             label="Notes"
             id="notes"
             type="text"
-            icon="note"
             value={item.notes}
             error={this.state.errors.notes}
             onChange={val => this.updateItem('notes', val)} />
