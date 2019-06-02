@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { downloadAsJSON } from "../utils/download";
 
 export default class AuthService {
   constructor({ apiService, authService }) {
@@ -49,5 +50,9 @@ export default class AuthService {
     return this.loadDocument().then(document => {
       return this.updateDocument({ document, password });
     }).then(() => this.authService.setPassword(password));
+  }
+
+  downloadDocument() {
+    this.loadDocument().then(document => downloadAsJSON(document, 'passwords.json'));
   }
 }

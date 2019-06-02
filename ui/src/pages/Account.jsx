@@ -67,6 +67,11 @@ export default class Account extends React.Component {
     }
   }
 
+  submitDownload(e) {
+    e.preventDefault();
+    this.props.services.documentService.downloadDocument();
+  }
+
   clearErrors() {
     this.setState({
       oldPasswordError: "",
@@ -83,6 +88,8 @@ export default class Account extends React.Component {
     this.clearErrors();
     this.setState({ newPassword });
   }
+
+
 
   render() {
     return (
@@ -130,6 +137,30 @@ export default class Account extends React.Component {
           </form>
         </div>
 
+        <hr />
+
+        <div className="row">
+          <form className="col s12">
+            <h2>Export Passwords</h2>
+            <p>
+              You can download your passwords as JSON.
+            </p>
+
+            <div className="row">
+              <div className="input-field col s12">
+                <button
+                  className="btn waves-effect waves-light"
+                  type="submit"
+                  name="action"
+                  onClick={(e) => this.submitDownload(e)}>
+                  Download Passwords
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <hr />
 
         <div className="row">
           <form className="col s12">
@@ -156,6 +187,7 @@ export default class Account extends React.Component {
             </div>
           </form>
         </div>
+
       </div>
     );
 

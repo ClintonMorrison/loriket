@@ -28,7 +28,10 @@ export class Navigation extends React.Component {
   }
 
   componentDidUpdate() {
-    window.M.Sidenav.getInstance(this.sidebarRef.current).close();
+    const instance = window.M.Sidenav.getInstance(this.sidebarRef.current);
+    if (instance) {
+      instance.close();
+    }
   }
 
   render() {
