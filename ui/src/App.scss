@@ -19,6 +19,11 @@ body {
 
 main {
   flex: 1 0 auto;
+
+  > div:not(.cp-home) {
+    max-width: 800px;
+    margin: auto;
+  }
 }
 
 .btn-negative {
@@ -42,7 +47,7 @@ main {
 hr {
   margin: 2rem -5%;
   border-top: 0;
-  border-bottom: 3px solid $primary-color;
+  border-bottom: 0;
 }
 
 .brand-logo, h1, h2, h3, h4, h5 {
