@@ -37,7 +37,7 @@ func (a Auth) Signature(salt []byte) (string, error) {
 
 func AuthFromRequest(r *http.Request) (Auth, error) {
 	username, password, ok := r.BasicAuth()
-	username = strings.ToLower(username)
+	// username = strings.ToLower(username) TODO
 	ip := r.Header.Get("X-Forwarded-For")
 
 	if !ok {
