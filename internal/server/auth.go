@@ -3,7 +3,6 @@ package server
 import (
 	"net/http"
 	"errors"
-	"strings"
 )
 
 type Auth struct {
