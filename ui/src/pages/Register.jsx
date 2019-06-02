@@ -73,13 +73,10 @@ export default class Register extends React.Component {
           <form className="col s12">
             <div className="row">
               <div className="col s12">
-                Enter a username and a strong password for your new account.
-
                 <p>
-                  <strong>Please write down your account information and keep it safe. </strong>
-                </p>
+                  Enter a username and a strong password for your new account.
+                  Please write down your account information and keep it safe.
 
-                <p>
                   Because of how your data will be encrypted, it will not be possible to regain
                   control of your account if you forget.
                 </p>

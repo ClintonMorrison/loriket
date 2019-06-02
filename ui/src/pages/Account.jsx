@@ -105,23 +105,25 @@ export default class Account extends React.Component {
               control of your account if you forget.
             </p>
 
-            <TextField
-              label="Old Password"
-              id="old-passwrd"
-              type="password"
-              value={this.state.oldPassword}
-              error={this.state.oldPasswordError}
-              onChange={val => this.updateOldPassword(val)} />
-
-            <TextField
-              label="New Password"
-              id="new-password"
-              type="password"
-              value={this.state.newPassword}
-              error={this.state.newPasswordError}
-              onChange={val => this.updateNewPassword(val)} />
-
             <div className="row">
+              <TextField
+                className="col s12"
+                label="Old Password"
+                id="old-passwrd"
+                type="password"
+                value={this.state.oldPassword}
+                error={this.state.oldPasswordError}
+                onChange={val => this.updateOldPassword(val)} />
+
+              <TextField
+                className="col s12"
+                label="New Password"
+                id="new-password"
+                type="password"
+                value={this.state.newPassword}
+                error={this.state.newPasswordError}
+                onChange={val => this.updateNewPassword(val)} />
+
               <div className="input-field col s12">
                 <button
                   className="btn waves-effect waves-light"

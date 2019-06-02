@@ -14,10 +14,12 @@ export default class CopyableField extends React.Component {
   }
 
   componentDidMount() {
-    console.log(ClipboardJS);
     this.clipboard = new ClipboardJS(`#${this.id}`);
     this.clipboard.on('success', () => {
       window.M.toast({html: `${checkIcon}${this.props.successMessage}`, classes: 'copy-success' });
+      if (this.props.onCopy) {
+        this.props.onCopy();
+      }
     });
   }
 

@@ -18,13 +18,16 @@ export default class Item extends React.Component {
   }
 
   renderViewButton() {
+    const { item } = this.props;
     return (
-      <Link className="waves-effect waves-light btn-small" to={`/passwords/${this.props.item.id}`}>
+      <Link
+        className="waves-effect waves-light btn-small"
+        to={`/passwords/${this.props.item.id}`}
+        onClick={() => this.props.updateLastUsedDate(item.id)}>
         <i className="material-icons">edit</i>
       </Link>
     );
   }
-
 
   render() {
     const { item } = this.props;
@@ -33,14 +36,16 @@ export default class Item extends React.Component {
       <CopyableField
         title="Username"
         value={item.username}
-        successMessage={`Copied username for ${item.title}`} />
+        successMessage={`Copied username for ${item.title}`}
+        onCopy={() => this.props.updateLastUsedDate(item.id)} />
     );
     if (!item.username && item.email) {
       userField = (
         <CopyableField
           title="Email"
           value={item.email}
-          successMessage={`Copied email for ${item.title}`} />
+          successMessage={`Copied email for ${item.title}`}
+          onCopy={() => this.props.updateLastUsedDate(item.id)} />
       );
     }
 
@@ -52,7 +57,8 @@ export default class Item extends React.Component {
           title="Password"
           value={item.password}
           successMessage={`Copied password for ${item.title}`}
-          mask />
+          mask
+          onCopy={() => this.props.updateLastUsedDate(item.id)} />
         {this.renderViewButton()}
       </li>
     );

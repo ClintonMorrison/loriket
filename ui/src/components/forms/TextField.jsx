@@ -23,24 +23,23 @@ export default class TextField extends React.Component {
       value,
       error,
       type,
-      icon
+      icon,
+      className
     } = this.props;
 
     return (
-      <div className="cp-text-field row">
-        <div className="input-field col s12">
-          {icon && (<i className="material-icons prefix">{icon}</i>)}
-          <input
-            id={id}
-            type={type}
-            className={error ? 'invalid' : ''}
-            autoComplete={this.props.autoComplete}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            ref={this.ref} />
-          <label htmlFor={id}>{label}</label>
-          <span className="helper-text" data-error={error} />
-        </div>
+      <div className={`cp-text-field input-field ${className}`}>
+        {icon && (<i className="material-icons prefix">{icon}</i>)}
+        <input
+          id={id}
+          type={type}
+          className={error ? 'invalid' : ''}
+          autoComplete={this.props.autoComplete}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          ref={this.ref}/>
+        <label htmlFor={id}>{label}</label>
+        <span className="helper-text" data-error={error}/>
       </div>
     );
   }

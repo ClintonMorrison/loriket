@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import Details from "../components/passwords/Details";
 import Loader from "../components/Loader";
+import moment from "moment/moment";
 
 export default class View extends React.Component {
   constructor(props) {
@@ -13,11 +14,14 @@ export default class View extends React.Component {
     };
   }
 
-  updatePassword(password) {
-    const { id } = password;
+  updatePassword(item) {
+    const { id } = item;
+    item.updated = moment().toISOString();
+    item.lastUsed = moment().toISOString();
+
     this.props.services.documentService.loadDocument().then(document => {
       const indexToUpdate = _.findIndex(document.passwords, { id });
-      document.passwords[indexToUpdate] = password;
+      document.passwords[indexToUpdate] = item;
       this.props.services.documentService.updateDocument({ document });
     }).then(() => {
       this.props.history.push("/passwords");

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { downloadAsJSON } from "../utils/download";
+import moment from "moment/moment";
 
 export default class AuthService {
   constructor({ apiService, authService }) {
@@ -29,7 +30,6 @@ export default class AuthService {
   }
 
   updateDocument({ document, password }) {
-    console.log({ document, password });
     const unencryptedDocument = JSON.stringify(document);
 
     const encryptedDocument = password ?
@@ -44,6 +44,21 @@ export default class AuthService {
 
   deleteDocument() {
     return this.apiService.del("document", this.authService.getHeaders());
+  }
+
+  createPassword(id) {
+    return {
+      id,
+      title: '',
+      username: '',
+      password: '',
+      email: '',
+      website: '',
+      notes: '',
+      created: moment().toISOString(),
+      updated: moment().toISOString(),
+      lastUsed: moment().toISOString()
+    };
   }
 
   updatePassword(password) {

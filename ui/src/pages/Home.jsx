@@ -7,7 +7,13 @@ import Heart from "../components/icons/Heart";
 import Bloom from "../components/icons/Bloom";
 import PadLock from "../components/icons/PadLock";
 
-export default function Home() {
+export default function Home({ services }) {
+
+  const cta = services.authService.sessionExists() ?
+    <Link to="/passwords" className="sign-up-link waves-effect waves-light btn-large btn">View Your Passwords</Link> :
+    <Link to="/register" className="sign-up-link waves-effect waves-light btn-large btn">Sign Up Now</Link>;
+
+
   return (
     <div className="cp-home">
       <div className="bird-banner">
@@ -52,8 +58,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <Link to="/register" className="sign-up-link waves-effect waves-light btn-large btn">Sign Up Now</Link>
+      {cta}
     </div>
   );
 }
