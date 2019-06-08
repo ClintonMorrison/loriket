@@ -7,6 +7,7 @@ import Collection from "../components/passwords/Collection";
 import Loader from "../components/Loader";
 import TextField from "../components/forms/TextField";
 import Sort from "../components/passwords/Sort";
+import EmptyState from '../components/EmptyState';
 
 import './Passwords.scss';
 
@@ -107,6 +108,11 @@ export default class Passwords extends React.Component {
     });
   }
 
+  handleClear(e) {
+    e.preventDefault();
+    this.setState({ query: '' });
+  }
+
   componentDidMount() {
     return this.props.services.documentService.loadDocument().then(document => {
       this.setState({ document });
@@ -114,6 +120,79 @@ export default class Passwords extends React.Component {
       this.props.history.push("/logout");
     });
   }
+
+  renderActions() {
+    return (
+      <div className="row">
+        <div className="col s12">
+          <div className="top-actions">
+            <button
+              onClick={e => this.createPassword(e)}
+              className="waves-effect waves-light btn">
+              <i className="material-icons left">add</i>
+              Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
+  renderFilters() {
+    const passwords = this.getPasswords();
+
+    if (!this.state.query && passwords.length === 0) {
+      return null;
+    }
+
+    return (
+      <form className="row" onSubmit={(e) => e.preventDefault()}>
+        <TextField
+          className="col s12 m6"
+          label="Search"
+          id="search"
+          value={this.state.query}
+          onChange={query => this.setState({ query })} />
+        <Sort className="col s12 m6" onChange={sort => this.setSort(sort)} value={this.state.sort} />
+      </form>
+    );
+  }
+
+  renderContent() {
+    const passwords = this.getPasswords();
+
+    if (passwords.length === 0) {
+      if (this.state.query) {
+        const subtitle = (
+          <div>
+            We couldn't find any passwords matching your search.{' '}
+            <a href="#clear" onClick={e => this.handleClear(e)}>Clear search</a>.
+          </div>
+        );
+        return (
+          <EmptyState
+            img="/todo.jpeg"
+            title="We're coming up empty"
+            subtitle={subtitle} />
+        );
+      }
+
+      return (
+        <EmptyState
+          img="/emptyState.jpeg"
+          title="Nothing here but us birds!"
+          subtitle="Add your first password and it will show up here." />
+      );
+    }
+
+    return (
+      <Collection
+        passwords={passwords}
+        updateLastUsedDate={id => this.updateLastUsedDate(id)} />
+    );
+  }
+
 
   render() {
     if (!this.state.document) {
@@ -125,33 +204,9 @@ export default class Passwords extends React.Component {
     return (
       <div className="cp-passwords">
         <h1>Passwords</h1>
-        <form className="row" onSubmit={(e) => e.preventDefault()}>
-          <TextField
-            className="col s12 m6"
-            label="Search"
-            id="search"
-            value={this.state.query}
-            onChange={query => this.setState({ query })} />
-          <Sort className="col s12 m6" onChange={sort => this.setSort(sort)} value={this.state.sort} />
-        </form>
-
-
-        <div className="row">
-          <div className="col s12">
-            <div className="top-actions">
-              <button
-                onClick={e => this.createPassword(e)}
-                className="waves-effect waves-light btn">
-                <i className="material-icons left">add</i>
-                Add
-              </button>
-            </div>
-
-            <Collection
-              passwords={this.getPasswords()}
-              updateLastUsedDate={id => this.updateLastUsedDate(id)} />
-          </div>
-        </div>
+        {this.renderFilters()}
+        {this.renderActions()}
+        {this.renderContent()}
       </div>
     )
   }

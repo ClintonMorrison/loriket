@@ -1,0 +1,11 @@
+@import '../variables.scss';
+
+.cp-register {
+  .password-requirements {
+    margin-top: 0;
+  }
+
+  .invalid {
+    color: $error-color;
+  }
+}

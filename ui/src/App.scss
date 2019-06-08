@@ -44,6 +44,10 @@ main {
   }
 }
 
+strong {
+  font-weight: 600;
+}
+
 hr {
   margin: 2rem -5%;
   border-top: 0;
@@ -52,4 +56,11 @@ hr {
 
 .brand-logo, h1, h2, h3, h4, h5 {
   font-family: 'Lato', sans-serif;
+}
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }

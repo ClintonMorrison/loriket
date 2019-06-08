@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import Navigation from './components/Navigation';
 
 import Home from './pages/Home';
+import About from './pages/About';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -29,6 +30,7 @@ export default class AppRouter extends React.Component {
         <main className="container">
           <Switch>
             <Route path="/" exact render={props => this.renderPage(Home, props)} />
+            <Route path="/about" exact render={props => this.renderPage(About, props)} />
             <Route path="/login" exact render={props => this.renderPage(Login, props)} />
             <Route path="/logout" exact render={props => this.renderPage(Logout, props)} />
             <Route path="/register" exact render={props => this.renderPage(Register, props)} />
