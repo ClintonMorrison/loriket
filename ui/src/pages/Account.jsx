@@ -206,7 +206,7 @@ export default class Account extends React.Component {
         <form className="col s12">
           <h2>Delete Account</h2>
           <p>
-            If you no longer which you use Lorikeet to manage your passwords you can delete your account.
+            If you no longer wish to use Lorikeet to manage your passwords you can delete your account.
             This will delete all your stored passwords, and account data.
             You will not be able to login again, or view your passwords.
           </p>
