@@ -8,7 +8,7 @@ export default class Terms extends React.Component {
 
         <p>
           Lorikeet is a small personal project. As such, these terms of service are somewhat informal.
-          We currently offer this service for free, so we ask you be reasonable with us.
+          The just of it is that we will do our best and try to be reasonable, but don't hold it against us if things go wrong!
         </p>
 
         <h2>Accounts & Data</h2>
