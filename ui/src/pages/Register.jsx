@@ -4,16 +4,8 @@ import _ from 'lodash';
 import TextField from '../components/forms/TextField';
 
 import './Register.scss';
-
-
-const digitsChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-const specialChars = [
-  '`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-',
-  '_', '+', '=', '[', ']', '|', '\\', ';', ':', '\'', '"',
-  '<', ',', '.', '>', '/', '?'
-];
-
+import { validatePassword } from "../utils/validation";
+import PasswordRequirements from "../components/PasswordRequirements";
 
 export default class Register extends React.Component {
   constructor(props) {
@@ -30,25 +22,6 @@ export default class Register extends React.Component {
         containsDigit: true,
         containsSpecial: true
       }
-    };
-  }
-
-  validatePassword(password) {
-    const result = {};
-
-
-    const containsLower = _.some(password, c => c.toLowerCase() === c);
-    const containsUpper = _.some(password, c => c.toUpperCase() === c);
-    const containsDigit = _.some(password, c => digitsChars.includes(c));
-    const containsSpecial = _.some(password, c => specialChars.includes(c));
-    const valid = containsLower && containsUpper && containsDigit && containsSpecial;
-
-    return {
-      valid,
-      containsLower,
-      containsUpper,
-      containsDigit,
-      containsSpecial
     };
   }
 
@@ -107,7 +80,7 @@ export default class Register extends React.Component {
 
   updatePassword(password) {
     this.clearErrors();
-    const passwordValidation = this.validatePassword(password);
+    const passwordValidation = validatePassword(password);
     this.setState({ password, passwordValidation });
   }
 
@@ -129,15 +102,7 @@ export default class Register extends React.Component {
                   control of your account if you forget.
                 </p>
 
-                <p>
-                  Your password must:
-                  <ul className="browser-default password-requirements">
-                    <li className={passwordValidation.containsLower ? '' : 'invalid'}>contains at least 1 lowercase letter</li>
-                    <li className={passwordValidation.containsUpper ? '' : 'invalid'}>contains at least 1 capital letter</li>
-                    <li className={passwordValidation.containsDigit ? '' : 'invalid'}>contains at least 1 number</li>
-                    <li className={passwordValidation.containsSpecial ? '' : 'invalid'}>contains at least 1 special character (! @ # ? etc.)</li>
-                  </ul>
-                </p>
+                <PasswordRequirements result={this.state.passwordValidation}/>
               </div>
             </div>
 

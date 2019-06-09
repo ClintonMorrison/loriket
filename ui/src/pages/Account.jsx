@@ -1,8 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import TextField from '../components/forms/TextField';
+import PasswordRequirements from '../components/PasswordRequirements';
 
 import './Account.scss';
+import {validatePassword} from "../utils/validation";
 
 export default class Account extends React.Component {
   constructor(props) {
@@ -11,7 +13,14 @@ export default class Account extends React.Component {
       oldPassword: "",
       newPassword: "",
       oldPasswordError: "",
-      newPasswordError: ""
+      newPasswordError: "",
+      passwordValidation: {
+        valid: true,
+        containsLower: true,
+        containsUpper: true,
+        containsDigit: true,
+        containsSpecial: true
+      }
     };
   }
 
@@ -30,6 +39,14 @@ export default class Account extends React.Component {
       anyErrors = true;
     }
 
+    const validation = this.state.passwordValidation;
+    if (!validation.valid) {
+      this.setState({
+        newPasswordError: 'New password does not meet requirements',
+      });
+      anyErrors = true;
+    }
+
     if (!this.state.oldPassword) {
       this.setState({ oldPasswordError: 'Old password cannot be empty' });
       anyErrors = true;
@@ -38,7 +55,6 @@ export default class Account extends React.Component {
     if (!this.props.services.authService.passwordMatchesSession(this.state.oldPassword)) {
       this.setState({ oldPasswordError: 'Old password is incorrect' });
       anyErrors = true;
-
     }
 
     if (anyErrors) {
@@ -86,7 +102,8 @@ export default class Account extends React.Component {
 
   updateNewPassword(newPassword) {
     this.clearErrors();
-    this.setState({ newPassword });
+    const passwordValidation = validatePassword(newPassword);
+    this.setState({ newPassword, passwordValidation });
   }
 
   renderChangePassword() {
@@ -99,6 +116,8 @@ export default class Account extends React.Component {
             Because of how your data will be encrypted, it will not be possible to regain
             control of your account if you forget.
           </p>
+
+          <PasswordRequirements result={this.state.passwordValidation}/>
 
           <div className="row">
             <TextField
