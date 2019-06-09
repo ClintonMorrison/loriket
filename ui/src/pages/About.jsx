@@ -6,7 +6,7 @@ import TextField from '../components/forms/TextField';
 export default class About extends React.Component {
   render() {
     return (
-      <div className="about">
+      <div className="cp-about">
         <h1>About</h1>
 
         <p>
@@ -58,6 +58,12 @@ export default class About extends React.Component {
           We use strong AES encryption, and SHA256 hashing.
           All requests to the server are also sent over HTTPS.
         </p>
+
+        <h2>Contact</h2>
+        If you have feedback, suggestions, or comments, we would love to hear from you.
+        You can send us an email at{' '}
+        <a href="email:clintonmorrison2@gmail.com">clintonmorrison2@gmail.com</a>.
+        You can also reach out on <a href="https://twitter.com/clint_morrison">Twitter</a>.
 
         <h2>Support Us</h2>
 

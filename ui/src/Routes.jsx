@@ -12,6 +12,8 @@ import Logout from './pages/Logout';
 import Account from "./pages/Account";
 import Passwords from './pages/Passwords';
 import View from "./pages/View";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 export default class AppRouter extends React.Component {
 
@@ -30,6 +32,8 @@ export default class AppRouter extends React.Component {
         <main className="container">
           <Switch>
             <Route path="/" exact render={props => this.renderPage(Home, props)} />
+            <Route path="/terms" exact render={props => this.renderPage(Terms, props)} />
+            <Route path="/privacy" exact render={props => this.renderPage(Privacy, props)} />
             <Route path="/about" exact render={props => this.renderPage(About, props)} />
             <Route path="/login" exact render={props => this.renderPage(Login, props)} />
             <Route path="/logout" exact render={props => this.renderPage(Logout, props)} />
