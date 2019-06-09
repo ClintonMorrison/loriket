@@ -172,7 +172,7 @@ export default class Passwords extends React.Component {
         );
         return (
           <EmptyState
-            img="/todo.jpeg"
+            img="/noSearchResults.png"
             title="We're coming up empty"
             subtitle={subtitle} />
         );

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { downloadAsJSON } from "../utils/download";
+import { downloadAsJSON, downloadAsCSV, downloadAsText } from "../utils/download";
 import moment from "moment/moment";
 
 export default class AuthService {
@@ -67,7 +67,13 @@ export default class AuthService {
     }).then(() => this.authService.setPassword(password));
   }
 
-  downloadDocument() {
-    this.loadDocument().then(document => downloadAsJSON(document, 'passwords.json'));
+  downloadDocument(type) {
+    let handler = downloadAsText;
+    if (type === 'json') handler = downloadAsJSON;
+    if (type === 'csv') handler = downloadAsCSV;
+
+    const extension = type === 'text' ? 'txt' : type;
+
+    this.loadDocument().then(document => handler(document, `passwords.${extension}`));
   }
 }

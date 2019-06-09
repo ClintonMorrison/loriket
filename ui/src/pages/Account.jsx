@@ -67,9 +67,9 @@ export default class Account extends React.Component {
     }
   }
 
-  submitDownload(e) {
+  submitDownload(e, type) {
     e.preventDefault();
-    this.props.services.documentService.downloadDocument();
+    this.props.services.documentService.downloadDocument(type);
   }
 
   clearErrors() {
@@ -89,105 +89,138 @@ export default class Account extends React.Component {
     this.setState({ newPassword });
   }
 
+  renderChangePassword() {
+    return (
+      <div className="row">
+        <form className="col s12">
+          <h2>Change Password</h2>
+          <p>
+            Please write down your new password and keep it safe.
+            Because of how your data will be encrypted, it will not be possible to regain
+            control of your account if you forget.
+          </p>
+
+          <div className="row">
+            <TextField
+              className="col s12"
+              label="Old Password"
+              id="old-passwrd"
+              type="password"
+              value={this.state.oldPassword}
+              error={this.state.oldPasswordError}
+              onChange={val => this.updateOldPassword(val)} />
+
+            <TextField
+              className="col s12"
+              label="New Password"
+              id="new-password"
+              type="password"
+              value={this.state.newPassword}
+              error={this.state.newPasswordError}
+              onChange={val => this.updateNewPassword(val)} />
+
+            <div className="input-field col s12">
+              <button
+                className="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+                onClick={(e) => this.submitPassword(e)}>
+                Update Password
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  renderExport() {
+    return (
+      <div className="row">
+        <form className="col s12">
+          <h2>Export Passwords</h2>
+          <p>
+            You can download your passwords as a text file, a CSV, or JSON.
+          </p>
+
+          <div className="row download-actions">
+            <div className="col s12">
+              <button
+                className="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+                onClick={(e) => this.submitDownload(e, 'csv')}>
+                <i className="material-icons left">file_download</i>
+                CSV
+              </button>
+              <button
+                className="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+                onClick={(e) => this.submitDownload(e, 'json')}>
+                <i className="material-icons left">file_download</i>
+                JSON
+              </button>
+              <button
+                className="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+                onClick={(e) => this.submitDownload(e, 'text')}>
+                <i className="material-icons left">file_download</i>
+                Text
+              </button>
+
+            </div>
+            <div className="col s4">
+            </div>
+            <div className="col s4">
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  renderDeleteAccount() {
+    return (
+      <div className="row">
+        <form className="col s12">
+          <h2>Delete Account</h2>
+          <p>
+            If you no longer which you use Lorikeet to manage your passwords you can delete your account.
+            This will delete all your stored passwords, and account data.
+            You will not be able to login again, or view your passwords.
+          </p>
+
+          <p>
+            <strong>This is irreversible.</strong>
+          </p>
+          <div className="row">
+            <div className="input-field col s12">
+              <button
+                className="btn waves-effect waves-light btn-negative"
+                type="submit"
+                name="action"
+                onClick={(e) => this.submitDelete(e)}>
+                Delete All Data
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
 
 
   render() {
     return (
       <div className="cp-account">
         <h1>Account</h1>
-
-        <div className="row">
-          <form className="col s12">
-            <h2>Change Password</h2>
-            <p>
-              Please write down your new password and keep it safe.
-              Because of how your data will be encrypted, it will not be possible to regain
-              control of your account if you forget.
-            </p>
-
-            <div className="row">
-              <TextField
-                className="col s12"
-                label="Old Password"
-                id="old-passwrd"
-                type="password"
-                value={this.state.oldPassword}
-                error={this.state.oldPasswordError}
-                onChange={val => this.updateOldPassword(val)} />
-
-              <TextField
-                className="col s12"
-                label="New Password"
-                id="new-password"
-                type="password"
-                value={this.state.newPassword}
-                error={this.state.newPasswordError}
-                onChange={val => this.updateNewPassword(val)} />
-
-              <div className="input-field col s12">
-                <button
-                  className="btn waves-effect waves-light"
-                  type="submit"
-                  name="action"
-                  onClick={(e) => this.submitPassword(e)}>
-                  Update Password
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-
+        {this.renderChangePassword()}
         <hr />
-
-        <div className="row">
-          <form className="col s12">
-            <h2>Export Passwords</h2>
-            <p>
-              You can download your passwords as JSON.
-            </p>
-
-            <div className="row">
-              <div className="input-field col s12">
-                <button
-                  className="btn waves-effect waves-light"
-                  type="submit"
-                  name="action"
-                  onClick={(e) => this.submitDownload(e)}>
-                  Download Passwords
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-
+        {this.renderExport()}
         <hr />
-
-        <div className="row">
-          <form className="col s12">
-            <h2>Delete Account</h2>
-            <p>
-              If you no longer which you use Lorikeet to manage your passwords you can delete your account.
-              This will delete all your stored passwords, and account data.
-              You will not be able to login again, or view your passwords.
-            </p>
-
-            <p>
-              <strong>This is irreversible.</strong>
-            </p>
-            <div className="row">
-              <div className="input-field col s12">
-                <button
-                  className="btn waves-effect waves-light btn-negative"
-                  type="submit"
-                  name="action"
-                  onClick={(e) => this.submitDelete(e)}>
-                  Delete All Data
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-
+        {this.renderDeleteAccount()}
       </div>
     );
 
