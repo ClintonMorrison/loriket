@@ -74,7 +74,7 @@ export default class Login extends React.Component {
           <form className="col s12">
             <div className="row">
               <div className="col s12">
-                Enter your username and password to login.
+                Enter your username and password to login. <a href="/register">Don't have an account yet?</a>
               </div>
             </div>
 

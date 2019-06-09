@@ -53,7 +53,7 @@ export default function Home({ services }) {
             <h5 className="promo-caption">Free</h5>
             <p className="light center">
               Lorikeet is free to use, and <a href="https://github.com/ClintonMorrison/lorikeet">open source</a>.
-              If you like it you can <a href="https://ko-fi.com/T6T0VOWY">support me on Ko-fi</a>.
+              If you like it you can <a href="https://ko-fi.com/T6T0VOWY">support us on Ko-fi</a>.
             </p>
           </div>
         </div>

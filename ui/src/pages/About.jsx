@@ -54,6 +54,11 @@ export default class About extends React.Component {
           In the browser, the original passwords are recovered using your credentials.
         </p>
 
+        <p>
+          We use strong AES encryption, and SHA256 hashing.
+          All requests to the server are also sent over HTTPS.
+        </p>
+
         <h2>Support Us</h2>
 
         <p>

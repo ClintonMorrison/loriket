@@ -1,5 +1,18 @@
 .cp-footer {
-  a + a {
-    margin-left: 1rem;
+  .links {
+    .item + .item {
+      margin-left: 1rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .item {
+        display: block;
+      }
+
+      .item + .item {
+        margin-left: 0;
+      }
+
+    }
   }
 }

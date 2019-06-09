@@ -7,14 +7,13 @@ export default function Footer() {
     <footer className="cp-footer page-footer">
       <div className="container">
         <div className="row">
-          <div className="col s12 m6">
-            <a className="grey-text text-lighten-4" href="https://clintonmorrison.com">Terms of Service</a>
-            <a className="grey-text text-lighten-4" href="https://clintonmorrison.com">Privacy Policy</a>
-
+          <div className="col s8 links">
+            <span className="item grey-text text-lighten-3">© 2019.</span>
+            <a className="item grey-text text-lighten-3" href="/terms">Terms of Service</a>
+            <a className="item grey-text text-lighten-3" href="/privacy">Privacy Statement</a>
           </div>
-
-          <div className="col s12 m6">
-              <a className="grey-text text-lighten-4 right" href="https://ko-fi.com/T6T0VOWY">Support Us</a>
+          <div className="col s4">
+            <a className="grey-text text-lighten-4 right" href="https://ko-fi.com/T6T0VOWY">Support Us</a>
           </div>
         </div>
       </div>
