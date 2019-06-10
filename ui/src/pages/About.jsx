@@ -10,11 +10,11 @@ export default class About extends React.Component {
         <h1>About</h1>
 
         <p>
-          Lorikeet is a personal project, created by <a href="https://clintonmorrison.com">Clinton Morrison</a>
+          Lorikeet is a personal project created by <a href="https://clintonmorrison.com">Clinton Morrison</a>{' '}
           and <a href="#TODO">Emma MacDonald</a>.
 
           It is designed to be a simple and secure online password manager.
-          We built a password manager we love because we weren't happy with existing ones.
+          We weren't happy with many password managers out there, so with our love of making cool new things together, we made Lorikeet.
         </p>
 
         <p>
@@ -25,20 +25,20 @@ export default class About extends React.Component {
         <h2>Security</h2>
 
         <p>
-          Security was our main focus in Lorikeet. This led to some unconventional decisions.
+          Security was our main focus in Lorikeet, which led to some unconventional decisions.
           Unlike other online services, you cannot reset your password if you forget it.
-          This is because of how your passwords are encrypted. We cannot reset your password
+          This is because of how your passwords are encrypted; we cannot reset your password
           because we do not store your password. We don't have the ability to decrypt your passwords.
         </p>
 
 
         <p>
-          If you enter incorrect credentials several times in a row your account will be locked for a few hours.
-          This helps keep your account safe, by making it difficult for others to guess your password.
+          If you enter incorrect credentials several times in a row, your account will be locked for a few hours.
+          This helps keep your account safe by making it difficult for others to guess your password.
         </p>
 
         <p>
-          Neither your login information or your stored passwords are ever sent to the server.
+          Neither your login information nor your stored passwords are ever sent to the server.
 
           When you login, an obfuscated copy of your Lorikeet username and password are stored temporarily in your browser session storage.
           A special token derived from your credentials is sent to the server when you login.
@@ -46,7 +46,7 @@ export default class About extends React.Component {
 
         <p>
           When you add passwords, they are encrypted in the browser using your Lorikeet credentials.
-          Our servers only ever receive this encrypted password data, never your real passwords.
+          Our servers only ever receive this encrypted password data, and never your real passwords.
           On the server it is encrypted a second time with your token, your username, and a salt.
 
           When we retrieve your passwords, they are partially decrypted on the server with your token.

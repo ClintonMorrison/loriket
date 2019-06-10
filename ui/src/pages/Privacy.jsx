@@ -14,13 +14,13 @@ export default class Privacy extends React.Component {
           We store your password and account data securely on our servers.
           Your Lorikeet password, as well as all the credentials you store in Lorikeet,
           are only ever sent to our servers in an encrypted form. Your data can be unencrypted
-          only with your Lorikeet password. It is not possible for us to your decrypt or view your
+          only with your Lorikeet password. It is not possible for us to decrypt or view your
           passwords on the server. Learn more on the <a href="/about">About page</a>.
         </p>
 
         <p>
-          We may create copies or backups of your data, to help restore your data
-          in the event unexpected software faults or server issues. After you delete
+          We may create copies or backups of your data to help restore your data
+          in the event of unexpected software faults or server issues. After you delete
           your account we may still temporarily store a copy of your data in a backup.
           Backup archives are stored temporarily and deleted over time.
         </p>
@@ -37,7 +37,7 @@ export default class Privacy extends React.Component {
             <li>Request metadata (HTTP request method and path)</li>
           </ul>
 
-          These logs are stored only temporarily, to help monitor the service and protect from attacks.
+          These logs are stored only temporarily to help monitor the service and protect from attacks.
         </p>
 
         <p>

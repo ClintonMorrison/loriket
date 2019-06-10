@@ -8,15 +8,15 @@ export default class Terms extends React.Component {
 
         <p>
           Lorikeet is a small personal project. As such, these terms of service are somewhat informal.
-          The just of it is that we will do our best and try to be reasonable, but don't hold it against us if things go wrong!
+          The gist of it is that we will do our best and try to be reasonable, but don't hold it against us if things go wrong!
         </p>
 
         <h2>Accounts & Data</h2>
         <p>
           To use this service you must create an account on the <a href="/register">registration page</a>.
           It is your responsibility to remember your username and password for this service.
-          If you lose you credentials we cannot help recover your account or data, due to how your data is securely stored.
-          You are also responsible for using a unique password, and not sharing it with others.
+          If you lose your credentials, we cannot help recover your account or data due to how your data is securely stored.
+          You are also responsible for using a unique password and not sharing it with others.
           This is essential for keeping your data secure.
           We recommend you change your password for the service every few months.
         </p>
@@ -33,7 +33,7 @@ export default class Terms extends React.Component {
         <h2>Disclaimer & Limitation of Liability</h2>
 
         <p>
-          We will always make a best effort to keep
+          We will always make our best effort to keep
           the service available and working. However, as a free personal project,
           we cannot give a strong guarantee that the service will always be available, secure, and free of bugs.
           We backup your data regularly but may lose it as a result of server failure or software defects.
@@ -43,7 +43,7 @@ export default class Terms extends React.Component {
         </p>
 
         <p>
-          By using Lorikeet you agree to not hold Lorikeet, its' founders, employees, or any contributors to the project, liable
+          By using Lorikeet you agree to not hold Lorikeet, its founders, employees, or any contributors to the project, liable
           for any losses or damages directly or indirectly related to using the service or site.
         </p>
 
@@ -58,7 +58,7 @@ export default class Terms extends React.Component {
 
         <h2>Changes</h2>
         <p>
-          In the future we may make changes to this agreement, the privacy statemet, or the service. We may also cease providing this service.
+          In the future we may make changes to this agreement, the privacy statement, or the service. We may also cease providing this service.
           For example, we may add paid features, or permanently shut down the service.
           For any such changes, we will provide 30 days notice on the website.
           By continuing to use the service you agree to these new terms.
