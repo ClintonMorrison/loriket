@@ -62,7 +62,7 @@ export default class About extends React.Component {
         <h2>Contact</h2>
         If you have feedback, suggestions, or comments, we would love to hear from you.
         You can send us an email at{' '}
-        <a href="email:clintonmorrison2@gmail.com">clintonmorrison2@gmail.com</a>.
+        <a href="mailto:clintonmorrison2@gmail.com">clintonmorrison2@gmail.com</a>.
         You can also reach out on <a href="https://twitter.com/clint_morrison">Twitter</a>.
 
         <h2>Support Us</h2>
