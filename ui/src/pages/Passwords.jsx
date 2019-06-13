@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import uuid from "uuid/v4";
+import { Helmet } from "react-helmet";
 
 import Collection from "../components/passwords/Collection";
 import Loader from "../components/Loader";
@@ -203,6 +204,10 @@ export default class Passwords extends React.Component {
 
     return (
       <div className="cp-passwords">
+        <Helmet>
+          <title>Passwords - Lorikeet</title>
+        </Helmet>
+
         <h1>Passwords</h1>
         {this.renderFilters()}
         {this.renderActions()}

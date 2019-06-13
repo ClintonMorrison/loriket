@@ -1,12 +1,14 @@
 import React from 'react';
-import _ from 'lodash';
-
-import TextField from '../components/forms/TextField';
+import { Helmet } from "react-helmet";
 
 export default class About extends React.Component {
   render() {
     return (
       <div className="cp-about">
+        <Helmet>
+          <title>About - Lorikeet</title>
+        </Helmet>
+
         <h1>About</h1>
 
         <p>

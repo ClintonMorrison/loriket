@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import _ from 'lodash';
 
 import Details from "../components/passwords/Details";
@@ -74,6 +75,10 @@ export default class View extends React.Component {
 
     return (
       <div className="cp-view">
+        <Helmet>
+          <title>Passwords - Lorikeet</title>
+        </Helmet>
+
         <Details
           item={item}
           createPassword={() => this.createPassword()}

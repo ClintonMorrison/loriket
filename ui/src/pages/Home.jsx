@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 import './Home.scss';
 import MainLogo from "../components/icons/MainLogo";
@@ -16,6 +17,10 @@ export default function Home({ services }) {
 
   return (
     <div className="cp-home">
+      <Helmet>
+        <title>Lorikeet</title>
+      </Helmet>
+
       <div className="bird-banner">
         <MainLogo />
       </div>

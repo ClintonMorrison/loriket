@@ -1,9 +1,15 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 
 export default class Privacy extends React.Component {
   render() {
     return (
       <div className="cp-privacy">
+        <Helmet>
+          <title>Privacy - Lorikeet</title>
+        </Helmet>
+
+
         <h1>Privacy Statement</h1>
 
         <p>

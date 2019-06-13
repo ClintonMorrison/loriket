@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Helmet } from "react-helmet";
 
 import TextField from '../components/forms/TextField';
 
@@ -85,9 +86,12 @@ export default class Register extends React.Component {
   }
 
   render() {
-    const { passwordValidation } = this.state;
     return (
       <div className="cp-register">
+        <Helmet>
+          <title>Sign Up - Lorikeet</title>
+        </Helmet>
+
         <h1>Sign Up</h1>
 
         <div className="row">

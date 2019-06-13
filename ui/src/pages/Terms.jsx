@@ -1,9 +1,14 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 
 export default class Terms extends React.Component {
   render() {
     return (
       <div className="cp-terms">
+        <Helmet>
+          <title>Terms - Lorikeet</title>
+        </Helmet>
+
         <h1>Terms of Service</h1>
 
         <p>

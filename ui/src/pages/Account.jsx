@@ -1,5 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
+import { Helmet } from "react-helmet";
+
 import TextField from '../components/forms/TextField';
 import PasswordRequirements from '../components/PasswordRequirements';
 
@@ -176,19 +178,18 @@ export default class Account extends React.Component {
                 className="btn waves-effect waves-light"
                 type="submit"
                 name="action"
-                onClick={(e) => this.submitDownload(e, 'json')}>
+                onClick={(e) => this.submitDownload(e, 'text')}>
                 <i className="material-icons left">file_download</i>
-                JSON
+                Text
               </button>
               <button
                 className="btn waves-effect waves-light"
                 type="submit"
                 name="action"
-                onClick={(e) => this.submitDownload(e, 'text')}>
+                onClick={(e) => this.submitDownload(e, 'json')}>
                 <i className="material-icons left">file_download</i>
-                Text
+                JSON
               </button>
-
             </div>
             <div className="col s4">
             </div>
@@ -234,6 +235,9 @@ export default class Account extends React.Component {
   render() {
     return (
       <div className="cp-account">
+        <Helmet>
+          <title>Account - Lorikeet</title>
+        </Helmet>
         <h1>Account</h1>
         {this.renderChangePassword()}
         <hr />
