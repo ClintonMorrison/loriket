@@ -59,6 +59,9 @@ export default class About extends React.Component {
         <p>
           We use strong AES encryption, and SHA256 hashing.
           All requests to the server are also sent over HTTPS.
+          You can find more information about how Lorikeet works on{' '}
+          <a href="https://ClintonMorrison.com/blog/creating_password_manager">Clinton's blog</a> and on the{' '}
+          <a href="https://github.com/ClintonMorrison/lorikeet">GitHub</a> page.
         </p>
 
         <h2>Contact</h2>

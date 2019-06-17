@@ -99,13 +99,16 @@ export default class Register extends React.Component {
             <div className="row">
               <div className="col s12">
                 <p>
+                  By signing up you agree to our <a href="/terms">Terms of Service</a>.
+                </p>
+
+                <p>
                   Enter a username and a strong password for your new account.
                   Please write down your account information and keep it safe.
 
                   Because of how your data will be encrypted, it will not be possible to regain
                   control of your account if you forget.
                 </p>
-
                 <PasswordRequirements result={this.state.passwordValidation}/>
               </div>
             </div>

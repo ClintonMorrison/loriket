@@ -5,7 +5,6 @@ Website: [https://lorrikeet.ca](https://lorikeet.ca)
 Lorikeet is a password manager web app, created with Golang, React and Materialize CSS. It uses client-side and server-side AES encryption.
 
 
-
 ## Running Lorikeet
 
 ### Running the Go server

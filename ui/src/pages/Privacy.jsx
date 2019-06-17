@@ -39,8 +39,7 @@ export default class Privacy extends React.Component {
 
           <ul className="browser-default">
             <li>IP address</li>
-            <li>User agent (browser information)</li>
-            <li>Request metadata (HTTP request method and path)</li>
+            <li>Request metadata (HTTP request headers, method, and path)</li>
           </ul>
 
           These logs are stored only temporarily to help monitor the service and protect from attacks.
