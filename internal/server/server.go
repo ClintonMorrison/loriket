@@ -6,7 +6,8 @@ import (
 	"github.com/ClintonMorrison/lorikeet/internal/storage"
 )
 
-const documentApiPath = "/api/document"
+const documentApiPath = "/api/documents"
+const sessionApiPath = "/api/sessions"
 
 func Run(
 	dataPath string,
@@ -31,12 +32,15 @@ func Run(
 
 	repository := &Repository{dataPath}
 	lockoutTable := NewLockoutTable()
-	service := &Service{repository, lockoutTable, errorLogger}
-	controller := Controller{service, requestLogger}
+	sessionStore := NewSessionStore()
+	service := &Service{repository, lockoutTable, sessionStore, errorLogger}
+	documentController := DocumentController{service, requestLogger}
+	sessionController := SessionController{service, requestLogger}
 
 	repository.createDataDirectory()
 
-	http.HandleFunc(documentApiPath, controller.handleDocument)
+	http.HandleFunc(documentApiPath, documentController.handle)
+	http.HandleFunc(sessionApiPath, sessionController.handle)
 	fmt.Printf("Listening on http://localhost%s\n", address)
 	err = http.ListenAndServe(address, nil)
 	if err != nil {

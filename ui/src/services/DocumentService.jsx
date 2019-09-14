@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { downloadAsJSON, downloadAsCSV, downloadAsText } from "../utils/download";
 import moment from "moment/moment";
 
-export default class AuthService {
+export default class DocumentService {
   constructor({ apiService, authService }) {
     this.apiService = apiService;
     this.authService = authService;
@@ -14,14 +14,14 @@ export default class AuthService {
     const initialDocument = JSON.stringify({ passwords: [] });
     const encryptedDocument = this.authService.encryptWithToken(initialDocument);
 
-    return this.apiService.post("document", {
+    return this.apiService.post("documents", {
       document: encryptedDocument,
       password: this.authService.doubleHash(password)
     }, this.authService.getHeaders());
   }
 
   loadDocument() {
-    return this.apiService.get("document", {}, this.authService.getHeaders()).then(resp => {
+    return this.apiService.get("documents", {}, this.authService.getHeaders()).then(resp => {
       const encryptedDocument = _.get(resp, "data.document") || '{}';
       const decryptedDocument = this.authService.decryptWithToken(encryptedDocument);
       this.document = JSON.parse(decryptedDocument);
@@ -36,14 +36,14 @@ export default class AuthService {
       this.authService.encryptWithToken(unencryptedDocument, this.authService.firstHash(password)) :
       this.authService.encryptWithToken(unencryptedDocument);
 
-    return this.apiService.put("document", {
+    return this.apiService.put("documents", {
       document: encryptedDocument,
       password: password ? this.authService.doubleHash(password) : undefined
     }, this.authService.getHeaders());
   }
 
   deleteDocument() {
-    return this.apiService.del("document", this.authService.getHeaders());
+    return this.apiService.del("documents", this.authService.getHeaders());
   }
 
   createPassword(id) {

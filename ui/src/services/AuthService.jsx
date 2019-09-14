@@ -2,8 +2,8 @@ import sha256 from 'crypto-js/sha256';
 import AES  from 'crypto-js/aes';
 import UTF_8 from 'crypto-js/enc-utf8';
 
-const SALT_1 = 'CC352C99A14616AD22678563ECDA5';
-const SALT_2 = '7767B9225CF66B418DD2A39CBC4AA';
+const PEPPER_1 = 'CC352C99A14616AD22678563ECDA5';
+const PEPPER_2 = '7767B9225CF66B418DD2A39CBC4AA';
 
 export default class AuthService {
   constructor({ apiService }) {
@@ -13,12 +13,12 @@ export default class AuthService {
 
   firstHash(password) {
     const username = this.getUsername();
-    return sha256(password + username + SALT_1).toString();
+    return sha256(password + username + PEPPER_1).toString();
   }
 
   secondHash(token) {
     const username = this.getUsername();
-    return sha256(token + username + SALT_2).toString();
+    return sha256(token + username + PEPPER_2).toString();
   }
 
   doubleHash(password) {

@@ -38,11 +38,15 @@ func (a Auth) Signature(salt []byte) (string, error) {
 func AuthFromRequest(r *http.Request) (Auth, error) {
 	username, password, ok := r.BasicAuth()
 	username = strings.ToLower(username)
-	ip := r.Header.Get("X-Forwarded-For")
+	ip := ipFromRequest(r)
 
 	if !ok {
 		return Auth{}, errors.New("invalid authorization header")
 	}
 
 	return Auth{username, password, ip}, nil
+}
+
+func ipFromRequest(r *http.Request) string {
+	return r.Header.Get("X-Forwarded-For")
 }
