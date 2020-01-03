@@ -4,6 +4,7 @@ import TextField from "../forms/TextField";
 import TextArea from "../forms/TextArea";
 
 import './Details.scss';
+import PasswordField from './PasswordField';
 
 export default class Details extends React.Component {
   constructor(props) {
@@ -19,6 +20,8 @@ export default class Details extends React.Component {
       },
       errors: {}
     };
+
+    this.updateItem = this.updateItem.bind(this);
   }
 
   updateItem(field, value) {
@@ -77,13 +80,9 @@ export default class Details extends React.Component {
             error={this.state.errors.username}
             onChange={val => this.updateItem('username', val)} />
 
-          <TextField
-            label="Password"
-            id="password"
-            type="text"
+          <PasswordField 
             value={item.password}
-            error={this.state.errors.password}
-            onChange={val => this.updateItem('password', val)} />
+            updateItem={this.updateItem} />
 
           <TextField
             label="Email"
