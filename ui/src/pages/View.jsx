@@ -23,7 +23,7 @@ export default class View extends React.Component {
     this.props.services.documentService.loadDocument().then(document => {
       const indexToUpdate = _.findIndex(document.passwords, { id });
       document.passwords[indexToUpdate] = item;
-      this.props.services.documentService.updateDocument({ document });
+      return this.props.services.documentService.updateDocument({ document });
     }).then(() => {
       this.props.history.push("/passwords");
     }).catch((err) => {
