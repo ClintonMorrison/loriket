@@ -17,3 +17,4 @@ node_modules/
 backup/
 log/
 .DS_Store
+ui/build/

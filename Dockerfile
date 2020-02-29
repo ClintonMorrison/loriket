@@ -12,7 +12,7 @@ COPY ./nginx.conf /etc/nginx
 COPY ./ui/build /opt/go/src/github.com/ClintonMorrison/lorikeet/ui/build
 COPY ./cmd /opt/go/src/github.com/ClintonMorrison/lorikeet/cmd
 COPY ./internal /opt/go/src/github.com/ClintonMorrison/lorikeet/internal
-COPY ./backup_and_run.sh /opt/go/src/github.com/ClintonMorrison/lorikeet/backup_and_run.sh
+COPY ./start.sh /opt/go/src/github.com/ClintonMorrison/lorikeet/start.sh
 
 WORKDIR /opt/go/src/github.com/ClintonMorrison/lorikeet
 RUN go build -o server cmd/server/main.go
