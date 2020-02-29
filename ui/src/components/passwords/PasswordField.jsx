@@ -79,6 +79,7 @@ export default class PasswordField extends React.Component {
           id="password"
           type={this.state.show ? 'text' : 'password'}
           value={value}
+          autoComplete="new-password"
           error={this.props.error}
           onChange={val => this.onChange(val)} />
         {this.props.value ? this.renderToggleButton() : this.renderGenerateButton()}
