@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/ClintonMorrison/lorikeet/internal/server"
 	"github.com/ClintonMorrison/lorikeet/internal/config"
+	"github.com/ClintonMorrison/lorikeet/internal/server"
 )
 
 func main() {

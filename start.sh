@@ -1,0 +1,1 @@
+./doBackup && nginx && ./server

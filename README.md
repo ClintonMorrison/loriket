@@ -35,6 +35,9 @@ sh build.sh
 # Frontend
 cd ./lorikeet/ui
 npm run build
+
+# Building docker container
+sh build.sh
 ```
 
 ### Creating a backup
