@@ -6,6 +6,7 @@ CONTAINER_PATH="/opt/go/src/github.com/ClintonMorrison/lorikeet"
 
 docker run -d \
   --name lorikeet \
+  --restart unless-stopped \
   -p "8020:80" \
   -v "$LORIKEET_PATH/data:$CONTAINER_PATH/data" \
   -v "$LORIKEET_PATH/log:$CONTAINER_PATH/log" \
