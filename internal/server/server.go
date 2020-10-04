@@ -1,8 +1,10 @@
 package server
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
+	"sync"
+
 	"github.com/ClintonMorrison/lorikeet/internal/storage"
 )
 
@@ -31,7 +33,12 @@ func Run(
 
 	repository := &Repository{dataPath}
 	lockoutTable := NewLockoutTable()
-	service := &Service{repository, lockoutTable, errorLogger}
+	service := &Service{
+		repo:         repository,
+		lockoutTable: lockoutTable,
+		errorLogger:  errorLogger,
+		lockByUser:   make(map[string]*sync.RWMutex),
+	}
 	controller := Controller{service, requestLogger}
 
 	repository.createDataDirectory()
@@ -43,4 +50,3 @@ func Run(
 		panic(err)
 	}
 }
-

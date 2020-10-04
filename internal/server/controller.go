@@ -1,15 +1,15 @@
 package server
 
 import (
-	"net/http"
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 type DocumentResponse struct {
-	Code int `json:"-"`
-	Error string `json:"error,omitempty"`
+	Code     int    `json:"-"`
+	Error    string `json:"error,omitempty"`
 	Document string `json:"document,omitempty"`
 }
 
@@ -23,21 +23,19 @@ type DocumentRequest struct {
 	Document string `json:"document"`
 }
 
-
 type Controller struct {
-	service *Service
+	service       *Service
 	requestLogger *log.Logger
 }
 
-var invalidRequestResponse = DocumentResponse{400,"Invalid request.", ""}
-var usernameTakenResponse = DocumentResponse{401,"Username already taken.", ""}
-var invalidCredentialsResponse = DocumentResponse{401,"Invalid user or credentials.", ""}
-var tooManyRequestsResponse = DocumentResponse{429,"Too many failed attempts. Try again in a few hours.", ""}
+var invalidRequestResponse = DocumentResponse{400, "Invalid request.", ""}
+var usernameTakenResponse = DocumentResponse{401, "Username already taken.", ""}
+var invalidCredentialsResponse = DocumentResponse{401, "Invalid user or credentials.", ""}
+var tooManyRequestsResponse = DocumentResponse{429, "Too many failed attempts. Try again in a few hours.", ""}
 
 var internalServerError = DocumentResponse{500, "Server error. Please try again later.", ""}
 
 var fallbackErrorJSON, _ = json.Marshal(internalServerError)
-
 
 func responseForError(err error) DocumentResponse {
 	switch err {
@@ -66,7 +64,6 @@ func parseDocumentRequestBody(body []byte) (*DocumentRequest, error) {
 
 	return documentRequest, nil
 }
-
 
 func (c *Controller) postDocument(auth Auth, body []byte) DocumentResponse {
 	request, err := parseDocumentRequestBody(body)
@@ -111,7 +108,7 @@ func (c *Controller) getDocument(auth Auth) DocumentResponse {
 		return responseForError(err)
 	}
 
-	return DocumentResponse{200,"", string(document)}
+	return DocumentResponse{200, "", string(document)}
 }
 
 func (c *Controller) deleteDocument(auth Auth) DocumentResponse {
@@ -120,7 +117,7 @@ func (c *Controller) deleteDocument(auth Auth) DocumentResponse {
 		return responseForError(err)
 	}
 
-	return DocumentResponse{204,"", ""}
+	return DocumentResponse{204, "", ""}
 }
 
 func (c *Controller) parseRequest(w http.ResponseWriter, r *http.Request) (*Auth, []byte) {
@@ -142,7 +139,6 @@ func (c *Controller) parseRequest(w http.ResponseWriter, r *http.Request) (*Auth
 
 	return &auth, body
 }
-
 
 func (c *Controller) handleDocument(w http.ResponseWriter, r *http.Request) {
 	auth, body := c.parseRequest(w, r)

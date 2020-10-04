@@ -2,12 +2,16 @@ package server
 
 import (
 	"log"
+	"sync"
 )
 
 type Service struct {
-	repo *Repository
+	repo         *Repository
 	lockoutTable *LockoutTable
-	errorLogger *log.Logger
+	errorLogger  *log.Logger
+
+	lockByUser map[string]*sync.RWMutex
+	lockMux    sync.RWMutex
 }
 
 func (s *Service) checkUserNameFree(auth Auth) error {
@@ -83,6 +87,10 @@ func (s *Service) createSalt(auth Auth) ([]byte, error) {
 }
 
 func (s *Service) CreateDocument(auth Auth, document string) error {
+	userMux := s.getLockForUser(auth.username)
+	userMux.Lock()
+	defer userMux.Unlock()
+
 	err := s.checkUserNameFree(auth)
 	if err != nil {
 		return err
@@ -103,6 +111,10 @@ func (s *Service) CreateDocument(auth Auth, document string) error {
 }
 
 func (s *Service) UpdateDocument(auth Auth, document string) error {
+	userMux := s.getLockForUser(auth.username)
+	userMux.Lock()
+	defer userMux.Unlock()
+
 	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return err
@@ -118,6 +130,10 @@ func (s *Service) UpdateDocument(auth Auth, document string) error {
 }
 
 func (s *Service) GetDocument(auth Auth) ([]byte, error) {
+	userMux := s.getLockForUser(auth.username)
+	userMux.RLock()
+	defer userMux.RUnlock()
+
 	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return nil, err
@@ -132,7 +148,11 @@ func (s *Service) GetDocument(auth Auth) ([]byte, error) {
 	return document, nil
 }
 
-func (s *Service) DeleteDocument(auth Auth) (error) {
+func (s *Service) DeleteDocument(auth Auth) error {
+	userMux := s.getLockForUser(auth.username)
+	userMux.Lock()
+	defer userMux.Unlock()
+
 	salt, err := s.checkAuth(auth)
 	if err != nil {
 		return err
@@ -154,6 +174,10 @@ func (s *Service) DeleteDocument(auth Auth) (error) {
 }
 
 func (s *Service) UpdateDocumentAndPassword(auth Auth, newPassword string, document string) error {
+	userMux := s.getLockForUser(auth.username)
+	userMux.Lock()
+	defer userMux.Unlock()
+
 	salt, err := s.saltForUser(auth)
 	if err != nil {
 		return err
@@ -171,7 +195,7 @@ func (s *Service) UpdateDocumentAndPassword(auth Auth, newPassword string, docum
 		return ERROR_SERVER_ERROR
 	}
 
-	err = s.repo.writeDocument([]byte(document),  newAuth, salt)
+	err = s.repo.writeDocument([]byte(document), newAuth, salt)
 	if err != nil {
 		s.logError(err)
 		return ERROR_SERVER_ERROR
@@ -180,9 +204,19 @@ func (s *Service) UpdateDocumentAndPassword(auth Auth, newPassword string, docum
 	return nil
 }
 
-
 func (s *Service) logError(err error) {
 	if err != nil {
 		s.errorLogger.Printf("%s\n", err.Error())
 	}
+}
+
+func (s *Service) getLockForUser(username string) *sync.RWMutex {
+	s.lockMux.Lock()
+	defer s.lockMux.Unlock()
+
+	if s.lockByUser[username] == nil {
+		s.lockByUser[username] = &sync.RWMutex{}
+	}
+
+	return s.lockByUser[username]
 }
