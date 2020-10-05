@@ -11,6 +11,7 @@ export default function Footer() {
             <span className="item grey-text text-lighten-3">© 2019</span>
             <a className="item grey-text text-lighten-3" href="/terms">Terms of Service</a>
             <a className="item grey-text text-lighten-3" href="/privacy">Privacy Statement</a>
+            <a className="item grey-text text-lighten-3" href="/change-log">Change Log</a>
           </div>
           <div className="col s4">
             <a className="grey-text text-lighten-4 right" href="https://ko-fi.com/T6T0VOWY">Support Us</a>
