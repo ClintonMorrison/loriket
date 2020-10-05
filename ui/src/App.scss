@@ -102,11 +102,12 @@ h2 {
   color: $dark-mode-foreground;
 
   nav, footer {
-    background-color: darken($header-color, 20%);
+    background-color: $dark-mode-nav;
   }
 
   .collection .collection-item {
     background-color: $dark-mode-background;
+    border-color: lighten($dark-mode-background-light, 5%);
   }
 
   .modal, .modal .modal-footer {
@@ -150,7 +151,15 @@ h2 {
     color: $dark-mode-visited;
   }
 
-  .toast.copy-success {
-    background-color: $dark-mode-background-light !important;
+  .btn {
+    background-color: $dark-mode-primary;
+  }
+
+  .btn-secondary {
+    background-color: $dark-mode-secondary;
+  }
+
+  .btn-negative {
+    background-color: $dark-mode-negative;
   }
 }

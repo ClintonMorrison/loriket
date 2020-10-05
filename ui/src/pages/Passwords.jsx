@@ -166,10 +166,10 @@ export default class Passwords extends React.Component {
     if (passwords.length === 0) {
       if (this.state.query) {
         const subtitle = (
-          <div>
+          <p>
             We couldn't find any passwords matching your search.{' '}
             <a href="#clear" onClick={e => this.handleClear(e)}>Clear search</a>.
-          </div>
+          </p>
         );
         return (
           <EmptyState
