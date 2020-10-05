@@ -143,7 +143,7 @@ h2 {
     }
   }
 
-  p > a {
+  p > a, .title > a {
     color: $dark-mode-selected;
   }
 
