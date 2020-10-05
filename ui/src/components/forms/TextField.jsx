@@ -9,7 +9,7 @@ export default class TextField extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       window.M.updateTextFields();
-      if (this.props.autoFocus) {
+      if (this.props.autoFocus && this.ref.current) {
         this.ref.current.focus();
       }
     }, 0);

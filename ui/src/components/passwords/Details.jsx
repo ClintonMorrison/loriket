@@ -80,10 +80,6 @@ export default class Details extends React.Component {
             error={this.state.errors.username}
             onChange={val => this.updateItem('username', val)} />
 
-          <PasswordField 
-            value={item.password}
-            updateItem={this.updateItem} />
-
           <TextField
             label="Email"
             id="email"
@@ -91,6 +87,10 @@ export default class Details extends React.Component {
             value={item.email}
             error={this.state.errors.email}
             onChange={val => this.updateItem('email', val)} />
+
+          <PasswordField 
+            value={item.password}
+            updateItem={this.updateItem} />
 
           <TextField
             label="Website"

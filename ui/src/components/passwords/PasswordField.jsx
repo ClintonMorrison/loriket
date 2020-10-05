@@ -3,11 +3,13 @@ import _ from 'lodash';
 import TextField from "../forms/TextField";
 
 import './PasswordField.scss';
+import GeneratorModal from './GeneratorModal';
 
 export default class PasswordField extends React.Component {
   constructor(props) {
     super(props);
     this.state = { show: false };
+    this.onPasswordGenerated = this.onPasswordGenerated.bind(this);
   }
 
   toggleShow(e) {
@@ -15,24 +17,7 @@ export default class PasswordField extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  generatePassword(e) {
-    e.preventDefault();
-
-    const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numeric = '0123456789';
-    const punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
-    let password = "";
-  
-    while (password.length < 10) {
-      let letterIndex = Math.floor(letters.length * Math.random());
-      let numberIndex = Math.floor(numeric.length * Math.random());
-      let puncIndex = Math.floor(punctuation.length * Math.random());
-
-      password += letters[letterIndex];
-      password += numeric[numberIndex];
-      password += punctuation[puncIndex];
-    }
-
+  onPasswordGenerated(password) {
     this.setState({ show: true });
     this.onChange(password);
     setTimeout(() => {
@@ -50,12 +35,7 @@ export default class PasswordField extends React.Component {
 
   renderGenerateButton() {
     return (
-      <button
-        className="waves-effect waves-light btn"
-        onClick={e => this.generatePassword(e)}>
-        <i className="material-icons left">loop</i>
-        Generate
-        </button>
+      <GeneratorModal onPasswordGenerated={this.onPasswordGenerated} />
     );
   }
 
@@ -73,7 +53,7 @@ export default class PasswordField extends React.Component {
   render() {
     const value = this.getPassword();
     return (
-      <div class="cp-password-field">
+      <div className="cp-password-field">
         <TextField
           label="Password"
           id="password"
