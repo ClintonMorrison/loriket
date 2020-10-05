@@ -68,3 +68,89 @@ a {
 h2 {
   font-size: 1.4rem;
 }
+
+
+
+.cp-app {
+  transition: color $dark-mode-transition-time;
+  transition: background-color $dark-mode-transition-time;
+
+  nav, footer {
+    transition: background-color $dark-mode-transition-time;
+  }
+
+  .collection .collection-item {
+    transition: background-color $dark-mode-transition-time;
+  }
+
+  .btn-flat {
+    transition: color $dark-mode-transition-time;
+  }
+
+  input {
+    transition: color $dark-mode-transition-time;
+  }
+  
+  .btn-small[disabled] {
+    transition: background $dark-mode-transition-time;
+  }
+}
+
+
+.cp-app.dark-mode {
+  background-color: $dark-mode-background;
+  color: $dark-mode-foreground;
+
+  nav, footer {
+    background-color: darken($header-color, 20%);
+  }
+
+  .collection .collection-item {
+    background-color: $dark-mode-background;
+  }
+
+  .modal, .modal .modal-footer {
+    background-color: $dark-mode-background-light;
+  }
+
+  .btn-flat {
+    color: $dark-mode-foreground;
+  }
+
+  input {
+    color: $dark-mode-foreground !important;
+  }
+
+  input:focus + label {
+    color: $dark-mode-selected !important;
+    border-color: $dark-mode-selected !important;
+  }
+
+  input[type=range] {
+    border-color: $dark-mode-background-light;
+  }
+  
+  .btn-small[disabled] {
+    background: $dark-mode-background-light !important;
+  }
+
+  .dropdown-content {
+    background: $dark-mode-background-light;
+
+    li > span {
+      color: $dark-mode-foreground;
+    }
+  }
+
+  p > a {
+    color: $dark-mode-selected;
+  }
+
+  p > a:visited {
+    color: $dark-mode-visited;
+  }
+
+  .toast.copy-success {
+    background-color: $dark-mode-background-light !important;
+  }
+}

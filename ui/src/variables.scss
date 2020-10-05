@@ -36,3 +36,10 @@ $collection-bg-color: $background-color;
 $collection-border-color: #424776;
 $off-black: $foreground-color;
 */
+
+$dark-mode-foreground: #fff;
+$dark-mode-background: #1f1f1f;
+$dark-mode-background-light: #2A2A2A;
+$dark-mode-selected: lighten($bird-blue, 20%);
+$dark-mode-visited: lighten($bird-blue, 40%);
+$dark-mode-transition-time: .5s;

@@ -12,6 +12,7 @@ export default class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      darkMode: props.services.preferencesService.isDarkModeEnabled(),
       oldPassword: "",
       newPassword: "",
       oldPasswordError: "",
@@ -108,10 +109,32 @@ export default class Account extends React.Component {
     this.setState({ newPassword, passwordValidation });
   }
 
+  updateDarkMode(enabled) {
+    this.setState({ darkMode: enabled });
+    this.props.services.preferencesService.setDarkMode(enabled);
+  }
+
   renderChangePassword() {
     return (
       <div className="row">
         <form className="col s12">
+          <h2>Dark Mode</h2>
+          <p>
+            <div class="switch">
+              <label>
+                <input
+                  id="dark-mode"
+                  type="checkbox"
+                  checked={this.state.darkMode}
+                  onChange={(e) => this.updateDarkMode(e.target.checked)}
+                />
+                <span class="lever"></span>
+                Dark Mode {this.state.darkMode ? 'Enabled' : 'Disabled'}
+              </label>
+            </div>
+          </p>
+
+
           <h2>Change Password</h2>
           <p>
             Please write down your new password and keep it safe.
