@@ -118,11 +118,13 @@ h2 {
     color: $dark-mode-foreground;
   }
 
-  input {
+  input,
+  textarea {
     color: $dark-mode-foreground !important;
   }
 
-  input:focus + label {
+  input:focus + label,
+  textarea:focus + label {
     color: $dark-mode-selected !important;
     border-color: $dark-mode-selected !important;
   }
